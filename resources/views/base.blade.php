@@ -32,8 +32,8 @@
               </form>
               <ul class="nav navbar-nav navbar-right">
               @if (!Auth::check())
-                <li><a href="/auth/register">Registrasi</a></li>
-                <li><a href="/auth/login">Login</a></li>
+                <li><a href="{{route('register-role')}}">Registrasi</a></li>
+                <li><a href="{{route('login')}}">Login</a></li>
               @else
                 <li><a href="{{route('account')}}">{{Auth::user()->nama_depan}} {{Auth::user()->nama_belakang}}</a></li>
                 <li><a href="/auth/logout">Logout</a></li>
