@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -105,10 +106,14 @@ class AuthController extends Controller
             );
         }
 
-        Auth::login($this->create($request->all()));
+        // buat user
+        $this->create($request->all());
 
-        return redirect($this->redirectPath());
+        // flash message
+        Session::flash('alert-info', 'Kami akan mengirimkan konfirmasi registrasi untuk memverifikasi email Anda. Silahkan periksa email Anda');
 
+        //return redirect($this->redirectPath());
+        return redirect()->route('login')->with('alert-info', 'Kami akan mengirimkan konfirmasi registrasi untuk memverifikasi email Anda. Silahkan periksa email Anda');
     }
 
 }
