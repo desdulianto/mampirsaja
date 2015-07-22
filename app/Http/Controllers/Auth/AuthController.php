@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -65,7 +67,7 @@ class AuthController extends Controller
             'gender' => $data['gender'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role' => 'user',
+            'role' => $data['role'],
             'username' => $data['username']
         ]);
     }
@@ -75,4 +77,38 @@ class AuthController extends Controller
         //return property_exists($this, 'username') ? $this->username : 'email';
         return 'username';
     }
+
+    public function registerRole()
+    {
+        return view('auth.register-role');
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postRegister(Request $request)
+    {
+        $url = $request->url();
+        $role = explode('/', $url);
+        $role = array_pop($role);
+
+        $request->merge(['role'=>$role]);
+
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        Auth::login($this->create($request->all()));
+
+        return redirect($this->redirectPath());
+
+    }
+
 }
