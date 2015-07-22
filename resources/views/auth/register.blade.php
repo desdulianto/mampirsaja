@@ -4,9 +4,9 @@
 <div class="row">
 <div class="col-sm-offset-3 col-sm-6 panel panel-default">
 <div class="panel-body">
-<form method="POST" action="/auth/register" class="form-horizontal">
+<form method="POST" action="{{Request::url()}}" class="form-horizontal">
     {!! csrf_field() !!}
-    <h1 class="text-center">Register</h1>
+    <h1 class="text-center">Registrasi</h1>
     <div class="form-group">
         <label for="nama_depan" class="col-sm-3 control-label">Nama Depan</label>
         <div class="col-sm-6">
