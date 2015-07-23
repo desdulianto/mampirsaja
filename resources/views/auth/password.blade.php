@@ -15,6 +15,8 @@
         <input type="email" name="email" value="{{ old('email') }}" class="form-control">
         </div>
     </div>
+    <p class="text-center">Masukkan email Anda pada saat registrasi. Kami akan kirimkan link untuk mengubah
+        password Anda.</p>
 
     <p class="text-right"><a href="{{route('register')}}">Belum daftar, yuk daftar!</a></p>
     <div class="form-group">
