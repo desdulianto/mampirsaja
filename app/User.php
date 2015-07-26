@@ -36,4 +36,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function toko() {
         return $this->hasOne('App\Toko');
     }
+
+    public function produks() {
+        return $this->hasMany('App\Produk');
+    }
 }

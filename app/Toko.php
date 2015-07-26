@@ -13,4 +13,8 @@ class Toko extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    public function produks() {
+        return $this->hasMany('App\Produk');
+    }
 }
