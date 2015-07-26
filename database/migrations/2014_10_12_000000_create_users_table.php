@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
         // insert admin user
         DB::table('users')->insert(
             array('nama_depan'=>'Des',
-                  'nama_belakang'=>'Duliant',
+                  'nama_belakang'=>'Dulianto',
                   'gender'=>'male',
                   'email'=>'desdulianto@gmail.com',
                   'password'=>Hash::make('secret'),
