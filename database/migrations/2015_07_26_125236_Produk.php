@@ -14,7 +14,6 @@ class Produk extends Migration
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
             $table->unsignedInteger('toko_id');
             $table->string('nama')->index();
             $table->string('tipe')->index();
