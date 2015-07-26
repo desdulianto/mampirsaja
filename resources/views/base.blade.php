@@ -22,6 +22,13 @@
                 <span class="icon-bar"></span>
               </button>
               <a class="navbar-brand" href="#">mampirsaja.com</a>
+              @if (Auth::check())
+              <ul class="nav navbar-nav">
+                @if (Auth::user()->role == "penjual")
+                <li><a href="{{route('toko')}}">Toko</a></li>
+                @endif
+              </ul>
+              @endif
             </div>
 
               <form class="navbar-form navbar-left" role="search">

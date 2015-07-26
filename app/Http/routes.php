@@ -35,3 +35,8 @@ Route::post('auth/register/{role}', ['as'=>'post-register', 'uses'=>'Auth\AuthCo
 
 // reset password route
 Route::get('auth/reset', ['as'=>'resetPassword', 'uses'=>'Auth\PasswordController@getEmail']);
+
+
+// toko route
+Route::get('toko', ['as'=>'toko', 'uses'=>'Toko\TokoController@index']);
+Route::post('toko', ['as'=>'postToko', 'uses'=>'Toko\TokoController@postToko']);
