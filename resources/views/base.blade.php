@@ -26,6 +26,9 @@
               <ul class="nav navbar-nav">
                 @if (Auth::user()->role == "penjual")
                 <li><a href="{{route('toko')}}">Toko</a></li>
+                @if (Auth::user()->toko != null)
+                <li><a href="{{route('produk')}}">Produk</a></li>
+                @endif
                 @endif
               </ul>
               @endif

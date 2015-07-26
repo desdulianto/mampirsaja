@@ -17,8 +17,9 @@ Route::get('/', function() {
 
 Route::get('/home', ['as'=>'account', 'uses'=>'AccountController@index']);
 
+
 // route for kategori
-Route::get('/produk/{kategori}', ['as'=>'kategori', 'uses'=>'ProdukController@show']
+Route::get('/kategori/{kategori}', ['as'=>'kategori', 'uses'=>'ProdukController@show']
 )->where('kategori', '[A-Za-z0-9]+');
 
 // Authentication routes...
@@ -40,3 +41,8 @@ Route::get('auth/reset', ['as'=>'resetPassword', 'uses'=>'Auth\PasswordControlle
 // toko route
 Route::get('toko', ['as'=>'toko', 'uses'=>'Toko\TokoController@index']);
 Route::post('toko', ['as'=>'postToko', 'uses'=>'Toko\TokoController@postToko']);
+
+// produk route
+Route::get('produk', ['as'=>'produk', 'uses'=>'Toko\ProdukController@index']);
+Route::get('produk/new', ['as'=>'produkNew', 'uses'=>'Toko\ProdukController@baru']);
+Route::post('produk/new', ['as'=>'postProduk', 'uses'=>'Toko\ProdukController@baruPost']);
