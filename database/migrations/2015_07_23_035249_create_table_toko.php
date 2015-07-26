@@ -20,6 +20,8 @@ class CreateTableToko extends Migration
             $table->string('nama_bank');
             $table->string('atas_nama');
             $table->string('nomor_rekening');
+            $table->string('kota');
+            $table->string('provinsi');
             $table->timestamps();
         });
 
