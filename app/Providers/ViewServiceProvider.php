@@ -15,7 +15,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         $kategoris = Kategori::all();
-        view()->share('kategoris', $kategoris);
+        view()->share('menu_kategoris', $kategoris);
     }
 
     /**

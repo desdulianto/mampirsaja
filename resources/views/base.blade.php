@@ -54,7 +54,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="menu-kategori">
               <ul class="nav navbar-nav">
-                @foreach ($kategoris as $kategori)
+                @foreach ($menu_kategoris as $kategori)
                 @if(Request::url() === route('kategori', ['kategori'=>$kategori->name]))
                     <li class="active"><a href="#">{{$kategori->label}}</a></li>
                 @else
