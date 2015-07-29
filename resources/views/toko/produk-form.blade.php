@@ -13,17 +13,6 @@
     </div>
 </div>
 <div class="form-group">
-    {!! Form::label('tipe', 'Tipe Item', array('class'=>'col-sm-3 control-label')) !!}
-    <div class="col-sm-7">
-    <div class="radio-inline">
-    {!! Form::radio('tipe', 'fisik', true) !!} Fisik
-    </div>
-    <div class="radio-inline">
-    {!! Form::radio('tipe', 'digital') !!} Digital
-    </div>
-    </div>
-</div>
-<div class="form-group">
     {!! Form::label('kategori_id', 'Kategori', array('class'=>'col-sm-3 control-label')) !!}
     <div class="col-sm-7">
     {!! Form::select('kategori_id', $kategoris, null, array('placeholder'=>'Pilih kategori', 'class'=>'form-control')) !!}

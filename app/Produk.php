@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Produk extends Model
 {
     protected $table = 'produk';
-    protected $fillable = ['toko_id', 'nama', 'tipe', 'kategori_id', 
+    protected $fillable = ['toko_id', 'nama', 'kategori_id', 
                     'deskripsi', 'stock', 'harga'];
 
     public function toko() {

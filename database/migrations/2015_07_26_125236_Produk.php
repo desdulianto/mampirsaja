@@ -16,7 +16,6 @@ class Produk extends Migration
             $table->increments('id');
             $table->unsignedInteger('toko_id');
             $table->string('nama')->index();
-            $table->string('tipe')->index();
             $table->unsignedInteger('kategori_id');
             $table->string('deskripsi');
             $table->unsignedInteger('stock');

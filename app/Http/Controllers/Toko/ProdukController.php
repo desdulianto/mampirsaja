@@ -34,7 +34,6 @@ class ProdukController extends Controller
     {
         return Validator::make($data, [
             'nama'        => 'required|max:255',
-            'tipe'        => 'required|in:fisik,digital',
             'kategori_id' => 'required|exists:kategoris,id',
             'deskripsi'   => 'required|max:1024',
             'stock'       => 'required|numeric|min:0',
@@ -46,7 +45,6 @@ class ProdukController extends Controller
     {
         return $toko->produks()->create([
             'nama'        => $data['nama'],
-            'tipe'        => $data['tipe'],
             'kategori_id' => $data['kategori_id'],
             'deskripsi'   => $data['deskripsi'],
             'stock'       => $data['stock'],
