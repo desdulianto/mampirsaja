@@ -41,6 +41,9 @@
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
               <ul class="nav navbar-nav navbar-right">
+              @if (Session::has('cart'))
+                <li><a href="{{route('cart')}}"><span class="glyphicon glyphicon-shopping-cart">Cart</span></a></li>
+              @endif
               @if (!Auth::check())
                 <li><a href="{{route('register-role')}}">Registrasi</a></li>
                 <li><a href="{{route('login')}}">Login</a></li>

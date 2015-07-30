@@ -48,3 +48,7 @@ Route::get('produk/new', ['as'=>'produkNew', 'uses'=>'Toko\ProdukController@baru
 Route::post('produk/new', ['as'=>'postProduk', 'uses'=>'Toko\ProdukController@baruPost']);
 
 Route::get('produk/beli/{id}', ['as'=>'beliProduk', 'uses'=>'ProdukController@beli']);
+
+// cart route
+Route::get('cart', ['as'=>'cart', 'uses'=>'CartController@index']);
+Route::get('cart/del/{index}', ['as'=>'delCart', 'uses'=>'CartController@del']);
