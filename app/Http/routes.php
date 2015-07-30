@@ -46,3 +46,5 @@ Route::post('toko', ['as'=>'postToko', 'uses'=>'Toko\TokoController@postToko']);
 Route::get('produk', ['as'=>'produk', 'uses'=>'Toko\ProdukController@index']);
 Route::get('produk/new', ['as'=>'produkNew', 'uses'=>'Toko\ProdukController@baru']);
 Route::post('produk/new', ['as'=>'postProduk', 'uses'=>'Toko\ProdukController@baruPost']);
+
+Route::get('produk/beli/{id}', ['as'=>'beliProduk', 'uses'=>'ProdukController@beli']);
