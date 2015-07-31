@@ -22,7 +22,13 @@ class CartController extends Controller
             $session->forget('cart');
             return redirect()->route('root');
         }
-        return view('cart', ['cart'=>$cart]);
+        $items = 0;
+        $total = 0;
+        foreach ($session->get('cart') as $item) {
+            $items += $item['qty'];
+            $total += $item['produk']['harga'] * $item['qty'];
+        }
+        return view('cart', ['cart'=>$cart, 'total_items'=>$items, 'total'=>$total]);
     }
 
     public function del(Request $request, $index)
@@ -34,7 +40,45 @@ class CartController extends Controller
             $session->forget('cart');
             return redirect()->route('root');
         }
-        return view('cart', ['cart'=>$cart]);
+        return redirect()->route('cart');
+    }
+
+    public function increase(Request $request, $index)
+    {
+        $session = $request->session();
+        $cart = $session->get('cart', []);
+        if (count($cart) == 0) {
+            $session->forget('cart');
+            return redirect()->route('root');
+        }
+        $item = $session->get("cart.$index", null);
+        if ($item != null) {
+            $item['qty'] = $item['qty'] + 1;
+            $session->put("cart.$index", $item);
+        }
+
+        return redirect()->route('cart');
+    }
+
+    public function decrease(Request $request, $index)
+    {
+        $session = $request->session();
+        $cart = $session->get('cart', []);
+        if (count($cart) == 0) {
+            $session->forget('cart');
+            return redirect()->route('root');
+        }
+        $item = $session->get("cart.$index", null);
+        if ($item != null) {
+            $item['qty'] = $item['qty'] - 1;
+            $session->put("cart.$index", $item);
+
+            if ($item['qty'] == 0) {
+                return redirect()->route('delCart', ['index'=>$index]);
+            }
+        }
+
+        return redirect()->route('cart');
     }
 
     /**

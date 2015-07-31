@@ -22,12 +22,35 @@ class ProdukController extends Controller
             'produks'=>$produks, 'count'=>$count]);
     }
 
+    public function produkExist(Request $request, $produk_id)
+    {
+        $pos = -1;
+        $session = $request->session();
+        $cart = $session->get('cart', []);
+        if (count($cart) == 0)
+            return $pos;
+        for ($i = 0; $i < count($cart); $i++) {
+            if ($cart[$i]['produk']['id'] == $produk_id) {
+                $pos = $i;
+                break;
+            }
+        }
+
+        return $pos;
+    }
+
     public function beli(Request $request, $produk_id) {
         $produk = Produk::find($produk_id);
         $session = $request->session();
-        $session->push('cart', $produk);
+        $n = $this->produkExist($request, $produk_id);
+        if ($n < 0) {
+            $session->push('cart', ['produk'=>$produk, 'qty'=>1]);
+        } else {
+            $item = $session->get("cart.$n");
+            $item['qty'] = $item['qty'] + 1;
+            $session->put("cart.$n",  $item);
+        }
 
-        //return "beli produk " . $produk->nama;
         return redirect()->back()->with('alert-info',"Item $produk->nama sudah dimasukkan ke cart!");
     }
 }

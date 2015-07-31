@@ -52,3 +52,5 @@ Route::get('produk/beli/{id}', ['as'=>'beliProduk', 'uses'=>'ProdukController@be
 // cart route
 Route::get('cart', ['as'=>'cart', 'uses'=>'CartController@index']);
 Route::get('cart/del/{index}', ['as'=>'delCart', 'uses'=>'CartController@del']);
+Route::get('cart/inc/{index}', ['as'=>'incCartItem', 'uses'=>'CartController@increase']);
+Route::get('cart/dec/{index}', ['as'=>'decCartItem', 'uses'=>'CartController@decrease']);

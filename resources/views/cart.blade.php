@@ -14,10 +14,10 @@
     <tbody>
 @foreach ($cart as $index => $item)
     <tr>
-    <td>{{$item->nama}}</td>
-    <td>{{$item->harga}}</td>
-    <td>1</td>
-    <td>{{$item->harga * 1}}</td>
+    <td>{{$item['produk']->nama}}</td>
+    <td>{{$item['produk']->harga}}</td>
+    <td>{{$item['qty']}} <a href="{{route('decCartItem', ['index'=>$index])}}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-minus"></span></a> <a href="{{route('incCartItem', ['index'=>$index])}}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span></a></td>
+    <td>{{$item['produk']->harga * $item['qty']}}</td>
     <td><a href="{{route('delCart', ['index'=>$index])}}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></a></td>
     </tr>
 @endforeach
@@ -25,8 +25,8 @@
     <tfoot>
         <tr>
             <td colspan="2">Total</td>
-            <td>Total Banyak</td>
-            <td>Total Harga</td>
+            <td>{{$total_items}}</td>
+            <td>{{$total}}</td>
         </tr>
     </tfoot>
 </table>
