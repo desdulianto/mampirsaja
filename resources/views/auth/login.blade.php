@@ -29,7 +29,7 @@
         </div>
     </div>
     <p class="text-right"><a href="{{route('resetPassword')}}">Lupa Password</a></p>
-    <p class="text-right"><a href="{{route('register')}}">Belum daftar, yuk daftar!</a></p>
+    <p class="text-right"><a href="{{route('register-role')}}">Belum daftar, yuk daftar!</a></p>
     <div class="form-group">
         <div class="col-sm-offset-8 col-sm-4">
             <button type="submit" class="btn btn-default">Login</button>

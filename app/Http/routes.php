@@ -33,6 +33,7 @@ Route::get('auth/register/{role}', ['as'=>'register', 'uses'=>'Auth\AuthControll
 )->where('role', 'pembeli|penjual');
 Route::post('auth/register/{role}', ['as'=>'post-register', 'uses'=>'Auth\AuthController@postRegister']
 )->where('role', 'pembeli|penjual');
+Route::get('auth/confirm/{kode}', ['as'=>'register-confirm', 'uses'=>'Auth\AuthController@registerConfirm']);
 
 // reset password route
 Route::get('auth/reset', ['as'=>'resetPassword', 'uses'=>'Auth\PasswordController@getEmail']);

@@ -21,19 +21,22 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->string('role', 10);
             $table->string('username')->unique();
+            $table->boolean('konfirmasi')->default(false);
+            $table->string('kode_konfirmasi')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
 
         // insert admin user
         DB::table('users')->insert(
-            array('nama_depan'=>'Des',
-                  'nama_belakang'=>'Dulianto',
+            array('nama_depan'=>'admin',
+                  'nama_belakang'=>'mampirsaja',
                   'gender'=>'male',
-                  'email'=>'desdulianto@gmail.com',
+                  'email'=>'admin@mampirsaja.com',
                   'password'=>Hash::make('secret'),
                   'role'=>'admin',
-                  'username'=>'desdulianto'
+                  'username'=>'admin',
+                  'konfirmasi'=>true
             )
         );
     }
