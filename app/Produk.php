@@ -8,7 +8,7 @@ class Produk extends Model
 {
     protected $table = 'produk';
     protected $fillable = ['toko_id', 'nama', 'kategori_id', 
-                    'deskripsi', 'stock', 'harga'];
+                    'deskripsi', 'stock', 'harga', 'foto'];
 
     public function toko() {
         return $this->belongsTo('App\Toko');

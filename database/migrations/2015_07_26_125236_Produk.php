@@ -20,6 +20,7 @@ class Produk extends Migration
             $table->string('deskripsi');
             $table->unsignedInteger('stock');
             $table->unsignedInteger('harga');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

@@ -4,12 +4,18 @@
 <div class="row">
 <div class="col-sm-12">
 <h1 class="text-center">{{$judul}}</h1>
-{!! Form::model($produk, array('route'=>'postProduk', 'method'=>'post', 'class'=>'form-horizontal col-sm-8 col-sm-offset-2')) !!}
+{!! Form::model($produk, array('route'=>'postProduk', 'method'=>'post', 'class'=>'form-horizontal col-sm-8 col-sm-offset-2', 'files'=>true)) !!}
     {!! csrf_field() !!}
 <div class="form-group">
     {!! Form::label('nama', 'Nama Item', array('class'=>'col-sm-3 control-label')) !!}
     <div class="col-sm-7">
     {!! Form::text('nama', null, array('class'=>'form-control')) !!}
+    </div>
+</div>
+<div class="form-group">
+    {!! Form::label('foto', 'Foto', array('class'=>'col-sm-3 control-label')) !!}
+    <div class="col-sm-7">
+    {!! Form::file('foto', null, array('class'=>'form-control')) !!}
     </div>
 </div>
 <div class="form-group">

@@ -49,6 +49,7 @@ class ProdukController extends Controller
             'deskripsi'   => $data['deskripsi'],
             'stock'       => $data['stock'],
             'harga'       => $data['harga'],
+            'foto'        => $data['foto'],
         ]);
     }
 
@@ -91,7 +92,19 @@ class ProdukController extends Controller
             );
         }
 
-        $this->create($toko, $request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('foto')) {
+            if ($request->file('foto')->isValid()) {
+                $dstPath = 'uploads';
+                $ext = $request->file('foto')->getClientOriginalExtension();
+                $file = $user->id . $toko->id . rand(11111,99999) . '.' . $ext;
+                $request->file('foto')->move($dstPath, $file);
+                $data['foto'] = $file;
+            }
+        }
+
+        $this->create($toko, $data);
 
         return redirect()->route('produk')->with('alert-info', "Produk $request->nama sudah tersimpan");
     }

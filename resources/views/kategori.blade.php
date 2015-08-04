@@ -9,15 +9,16 @@
     @foreach ($produks as $produk)
     <div class="col-sm-4 col-md-3">
         <div class="thumbnail">
+            <img src="/uploads/{{$produk->foto}}">
             <div class="caption">
                 <p>{{$produk->nama}}</p>
                 <p class="text-muted">{{$produk->kategori->name}}</p>
+                <p>{{$produk->deskripsi}}</p>
+                <p>{{$produk->harga}}</p>
             </div>
-            <p>{{$produk->deskripsi}}</p>
-            <p>{{$produk->harga}}</p>
             <div class="text-right">
-            <a href="{{route('beliProduk', ['produk'=>$produk->id])}}" type="button" class="btn btn-primary btn-lg">
-                <span class="glyphicon glyphicon-shopping-cart">Beli</span>
+            <a href="{{route('beliProduk', ['produk'=>$produk->id])}}" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-shopping-cart">Masukkan ke keranjang</span>
             </a>
             </div>
         </div>

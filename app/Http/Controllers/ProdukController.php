@@ -51,6 +51,6 @@ class ProdukController extends Controller
             $session->put("cart.$n",  $item);
         }
 
-        return redirect()->back()->with('alert-info',"Item $produk->nama sudah dimasukkan ke cart!");
+        return redirect()->back()->with('alert-info',"Item $produk->nama sudah dimasukkan ke keranjang.");
     }
 }

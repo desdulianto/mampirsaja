@@ -6,12 +6,13 @@
 @foreach ($produks as $produk)
 <div class="col-sm-4 col-md-3">
     <div class="thumbnail">
+        <img src="/uploads/{{$produk->foto}}">
         <div class="caption">
             <p>{{$produk->nama}}</p>
             <p class="text-muted">{{$produk->kategori->name}}</p>
+            <p>{{$produk->deskripsi}}</p>
+            <p>{{$produk->harga}}</p>
         </div>
-        <p>{{$produk->deskripsi}}</p>
-        <p>{{$produk->harga}}</p>
     </div>
 </div>
 @endforeach
