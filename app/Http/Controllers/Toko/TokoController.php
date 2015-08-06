@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Toko;
 use App\User;
+use App\Propinsi;
 use Validator;
 
 class TokoController extends Controller
@@ -25,10 +26,18 @@ class TokoController extends Controller
 
         $toko = $user->toko;
 
+        // kota dan propinsi
+        $kota = Propinsi::select('kota')->distinct()->
+                    orderBy('kota', 'asc')->lists('kota', 'kota');
+        $propinsi = Propinsi::select('propinsi')->distinct()->
+            orderBy('propinsi', 'asc')->lists('propinsi', 'propinsi');
+
         if ($toko == null)
-            return view('toko.toko', ['toko'=>null]);
+            return view('toko.toko', ['toko'=>null, 'kota'=>$kota, 
+            'propinsi'=>$propinsi]);
         else
             return view('toko.toko', ['toko'=>$toko,
+                'kota'=>$kota, 'propinsi'=>$propinsi,
                 ]);
     }
 
@@ -39,8 +48,8 @@ class TokoController extends Controller
             'nama_bank' => 'required|max:255',
             'atas_nama' => 'required|max:255',
             'nomor_rekening' => 'required|max:255',
-            'kota' => 'required',
-            'provinsi' => 'required',
+            'kota' => 'required|exists:propinsi',
+            'propinsi' => 'required|exists:propinsi',
         ]);
     }
 
@@ -51,6 +60,8 @@ class TokoController extends Controller
             'nama_bank' => 'required|max:255',
             'atas_nama' => 'required|max:255',
             'nomor_rekening' => 'required|max:255',
+            'kota' => 'required|exists:propinsi',
+            'propinsi' => 'required|exists:propinsi',
         ]);
     }
 
@@ -70,12 +81,16 @@ class TokoController extends Controller
                 'nama_bank' => $data['nama_bank'],
                 'atas_nama' => $data['atas_nama'],
                 'nomor_rekening' => $data['nomor_rekening'],
+                'kota'=> $data['kota'],
+                'propinsi'=> $data['propinsi'],
             ]);
         } else {
             $toko->nama = $data['nama'];
             $toko->nama_bank = $data['nama_bank'];
             $toko->atas_nama = $data['atas_nama'];
             $toko->nomor_rekening = $data['nomor_rekening'];
+            $toko->kota = $data['toko'];
+            $toko->propinsi = $data['propinsi'];
 
             $toko->save();
         }
@@ -107,7 +122,7 @@ class TokoController extends Controller
             $toko->nama_bank = $request->nama_bank;
             $toko->atas_nama = $request->atas_nama;
             $toko->nomor_rekening = $request->nomor_rekening;
-            $toko->provinsi = $request->provinsi;
+            $toko->propinsi = $request->propinsi;
             $toko->kota = $request->kota;
 
             $toko->save();

@@ -31,15 +31,15 @@
     </div>
 </div>
 <div class="form-group">
-    {!! Form::label('provinsi', 'Provinsi', array('class'=>'col-sm-3 control-label')) !!}
+    {!! Form::label('propinsi', 'Provinsi', array('class'=>'col-sm-3 control-label')) !!}
     <div class="col-sm-7">
-    {!! Form::select('provinsi', array('sb'=>'Sumatra Barat', 'su'=>'Sumatra Utara'), null, array('class'=>'form-control')) !!}
+    {!! Form::select('propinsi', $propinsi, null, array('class'=>'form-control')) !!}
     </div>
 </div>
 <div class="form-group">
     {!! Form::label('kota', 'Kota', array('class'=>'col-sm-3 control-label')) !!}
     <div class="col-sm-7">
-    {!! Form::select('kota', array("pdg"=>"Padang", "bkt"=>"Bukittinggi"), null, array('class'=>'form-control')) !!}
+    {!! Form::select('kota', $kota, null, array('class'=>'form-control')) !!}
     </div>
 </div>
 <div class="form-group">

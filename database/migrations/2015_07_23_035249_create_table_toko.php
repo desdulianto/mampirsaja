@@ -21,7 +21,7 @@ class CreateTableToko extends Migration
             $table->string('atas_nama');
             $table->string('nomor_rekening');
             $table->string('kota');
-            $table->string('provinsi');
+            $table->string('propinsi');
             $table->timestamps();
         });
 
