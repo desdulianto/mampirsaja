@@ -38,6 +38,7 @@ class ProdukController extends Controller
             'deskripsi'   => 'required|max:1024',
             'stock'       => 'required|numeric|min:0',
             'harga'       => 'required|numeric|min:0',
+            'berat'       => 'required|between:0.01,99.99',
         ]);
     }
 
@@ -50,6 +51,7 @@ class ProdukController extends Controller
             'stock'       => $data['stock'],
             'harga'       => $data['harga'],
             'foto'        => $data['foto'],
+            'berat'       => $data['berat'],
         ]);
     }
 

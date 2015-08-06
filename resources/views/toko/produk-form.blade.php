@@ -43,6 +43,12 @@
     </div>
 </div>
 <div class="form-group">
+    {!! Form::label('berat', 'Berat (kg)', array('class'=>'col-sm-3 control-label')) !!}
+    <div class="col-sm-7">
+    {!! Form::text('berat', null, array('class'=>'form-control')) !!}
+    </div>
+</div>
+<div class="form-group">
     <div class="text-right">
         {!! Form::submit('Simpan', array('class'=>'btn btn-default')) !!}
     </div>
