@@ -31,6 +31,7 @@
     </tfoot>
 </table>
 <div class="text-right">
-<a class="btn btn-primary btn-lg">Checkout</a>
+<a class="btn btn-default" href="{{route('kategori', ['kategori'=>'semua'])}}">Kembali berbelanja</a>
+<a class="btn btn-primary btn-lg" href="{{route('checkout')}}">Ke proses pembayaran</a>
 </div>
 @endsection
