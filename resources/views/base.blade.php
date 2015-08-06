@@ -1,9 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>@section('title')
-                mampirsaja.com
-               @endsection</title>
+        <title>mampirsaja.com</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ URL::asset('assets/bootstrap/css/bootstrap.min.css')}}">
@@ -42,7 +40,7 @@
               </form>
               <ul class="nav navbar-nav navbar-right">
               @if (Session::has('cart'))
-                <li><a href="{{route('cart')}}"><span class="glyphicon glyphicon-shopping-cart">Cart</span></a></li>
+                <li><a href="{{route('cart')}}"><span class="glyphicon glyphicon-shopping-cart">Keranjang</span></a></li>
               @endif
               @if (!Auth::check())
                 <li><a href="{{route('register-role')}}">Registrasi</a></li>
