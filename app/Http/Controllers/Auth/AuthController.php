@@ -178,4 +178,19 @@ class AuthController extends Controller
                 $this->loginUsername() => $this->getFailedLoginMessage(),
             ]);
     }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLogout()
+    {
+        Auth::logout();
+        Session::flush();
+        Session::regenerate();
+
+        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+    }
+
 }
