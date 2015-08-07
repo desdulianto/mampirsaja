@@ -44,6 +44,7 @@ class ProdukController extends Controller
 
     protected function create(Toko $toko, array $data)
     {
+        if (array_key_exists('foto', $data)) {
         return $toko->produks()->create([
             'nama'        => $data['nama'],
             'kategori_id' => $data['kategori_id'],
@@ -53,6 +54,16 @@ class ProdukController extends Controller
             'foto'        => $data['foto'],
             'berat'       => $data['berat'],
         ]);
+        } else {
+        return $toko->produks()->create([
+            'nama'        => $data['nama'],
+            'kategori_id' => $data['kategori_id'],
+            'deskripsi'   => $data['deskripsi'],
+            'stock'       => $data['stock'],
+            'harga'       => $data['harga'],
+            'berat'       => $data['berat'],
+        ]);
+        }
     }
 
     public function index(Request $request)
