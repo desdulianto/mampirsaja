@@ -39,6 +39,33 @@ class CreateUsersTable extends Migration
                   'konfirmasi'=>true
             )
         );
+
+        // insert jual user
+        DB::table('users')->insert(
+            array('nama_depan'=>'jual',
+                  'nama_belakang'=>'testing',
+                  'gender'=>'male',
+                  'email'=>'jual@mampirsaja.com',
+                  'password'=>Hash::make('secret'),
+                  'role'=>'penjual',
+                  'username'=>'jual',
+                  'konfirmasi'=>true
+            )
+        );
+
+        // insert beli user
+        DB::table('users')->insert(
+            array('nama_depan'=>'beli',
+                  'nama_belakang'=>'testing',
+                  'gender'=>'male',
+                  'email'=>'beli@mampirsaja.com',
+                  'password'=>Hash::make('secret'),
+                  'role'=>'pembeli',
+                  'username'=>'beli',
+                  'konfirmasi'=>true
+            )
+        );
+
     }
 
     /**
