@@ -9,7 +9,11 @@
     @foreach ($produks as $produk)
     <div class="col-sm-4 col-md-3">
         <div class="thumbnail">
+            @if ($produk->foto)
             <img src="/uploads/{{$produk->foto}}">
+            @else
+            <img src="{{URL::asset('assets/images/noimage.svg')}}">
+            @endif
             <div class="caption">
                 <p>{{$produk->nama}}</p>
                 <p class="text-muted">{{$produk->kategori->name}}</p>
