@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Validator;
+use Mail;
+
+use App\Propinsi;
+use App\Produk;
+use App\Ongkir;
+use App\Pesanan;
+use App\PesananDetails;
 
 class CartController extends Controller
 {
@@ -81,69 +89,143 @@ class CartController extends Controller
         return redirect()->route('cart');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function checkout(Request $request)
     {
-        //
+        $session = $request->session();
+        $cart = $session->get('cart', []);
+
+        // kota dan propinsi
+        $kota = Propinsi::select('kota')->distinct()->
+                    orderBy('kota', 'asc')->lists('kota', 'kota');
+        $propinsi = Propinsi::select('propinsi')->distinct()->
+            orderBy('propinsi', 'asc')->lists('propinsi', 'propinsi');
+
+        if (Auth::check()) {
+            return view('checkout', ['cart'=>$cart, 'kota'=>$kota, 'propinsi'=>$propinsi]);
+        } else {
+            return view('auth.login_or_register', ['redir'=>'checkoutAlamat']);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
+    protected function validator(array $data)
     {
-        //
+        return Validator::make($data, [
+            'nama'        => 'required|max:255',
+            'alamat'      => 'required|max:255',
+            'kota'        => 'required|exists:propinsi',
+            'propinsi'    => 'required|exists:propinsi',
+            'kode_pos'    => 'required|max:50',
+            'email'       => 'required|email',
+            'telepon'     => 'required|min:10',
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function biayaXHR(Request $request)
     {
-        //
+        $session = $request->session();
+        $kota = $request->kota;
+        $propinsi = $request->propinsi;
+        $cart = $session->get('cart', []);
+
+        $totalOngkir = 0;
+        $totalBelanja = 0;
+
+        foreach ($cart as $item) {
+            $toko = Produk::find($item['produk']->id)->toko;
+            $produk = Produk::find($item['produk']->id);
+            $qty = $item['qty'];
+            $kotaAsal = $toko->kota;
+            $propinsiAsal = $toko->propinsi;
+            $ongkir = Ongkir::select('ongkos')->
+                where('kota_asal', $kotaAsal)->
+                where('propinsi_asal', $propinsiAsal)->
+                where('kota_tujuan', $kota)->
+                where('propinsi_tujuan', $propinsi)->first();
+            if ($ongkir == null)
+                $ongkir = -1;
+            else
+                $ongkir = $ongkir->ongkos;
+            $totalBelanja += $produk->harga * $qty;
+            $totalOngkir += $produk->berat * $qty * $ongkir;
+        }
+
+        return json_encode(['ongkir'=>$totalOngkir, 'total_belanja'=>$totalBelanja]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
+    public function confirmOrder(Request $request) {
+        $session = $request->session();
+        $cart = $session->get('cart', []);
+        $kota = $request->kota;
+        $propinsi = $request->propinsi;
+
+        $total = json_decode($this->biayaXHR($request));
+
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $items = [];
+        foreach ($cart as $item) {
+            $toko = Produk::find($item['produk']->id)->toko;
+            $produk = Produk::find($item['produk']->id);
+            $qty = $item['qty'];
+            $kotaAsal = $toko->kota;
+            $propinsiAsal = $toko->propinsi;
+            $ongkir = Ongkir::select('ongkos')->
+                where('kota_asal', $kotaAsal)->
+                where('propinsi_asal', $propinsiAsal)->
+                where('kota_tujuan', $kota)->
+                where('propinsi_tujuan', $propinsi)->first();
+            if ($ongkir == null)
+                $ongkir = -1;
+            else
+                $ongkir = $ongkir->ongkos;
+
+            array_push($items, ['produk_id'=>$produk->id, 'nama'=>$produk->nama,
+                'harga'=>$produk->harga, 'berat'=>$produk->berat,
+                'qty'=>$qty, 'ongkir'=>$ongkir, 'toko_id'=>$toko->id]);
+        }
+
+        
+        $data = $request->all();
+        $data['user_id'] = $request->user()->id;
+        $data['items'] = $items;
+        $order = $this->createPesanan($data);
+
+        $request->session()->forget('cart');
+        $request->session()->regenerate();
+
+
+        // kirim invoice
+        Mail::send('invoice', ['order'=>$order, 'total'=>$total], function($pesan) use ($order) {
+                    $pesan->to($order->email, $order->nama)->subject('Invoice Order ' . $order->id);
+        });
+
+        return view('invoice', ['order'=>$order, 'total'=>$total]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    protected function createPesanan($data) {
+        $pesanan = Pesanan::create([
+            'tanggal' =>date('Y-m-d'),
+            'user_id' =>$data['user_id'],
+            'nama'    =>$data['nama'],
+            'alamat'  =>$data['alamat'],
+            'kota'    =>$data['kota'],
+            'propinsi'=>$data['propinsi'],
+            'kode_pos'=>$data['kode_pos'],
+            'telepon' =>$data['telepon'],
+            'email'   =>$data['email'],
+            ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+        $items = [];
+        foreach ($data['items'] as $item) {
+            array_push($items, new PesananDetails($item));
+        }
+        $pesanan->items()->saveMany($items);
+        return $pesanan;
     }
 }

@@ -41,4 +41,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function produks() {
         return $this->hasMany('App\Produk');
     }
+
+    public function pesanan() {
+        return $this->hasMany('App\Pesanan', 'user_id');
+    }
 }

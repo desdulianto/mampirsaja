@@ -57,4 +57,5 @@ Route::get('cart/inc/{index}', ['as'=>'incCartItem', 'uses'=>'CartController@inc
 Route::get('cart/dec/{index}', ['as'=>'decCartItem', 'uses'=>'CartController@decrease']);
 Route::get('checkout', ['as'=>'checkout', 'uses'=>'CartController@checkout']);
 //Route::post('checkout/alamat', ['as'=>'checkoutAlamat', 'uses'=>'CartController@checkoutAlamat']);
-Route::post('checkout/alamat', ['as'=>'checkoutAlamat', 'uses'=>'CartController@calculateBiayaKirim']);
+Route::post('checkout/confirm', ['as'=>'checkoutConfirm', 'uses'=>'CartController@confirmOrder']);
+Route::post('checkout/biaya', ['as'=>'checkoutBiayaKirim', 'uses'=>'CartController@biayaXHR']);
