@@ -11,6 +11,7 @@ use App\Kategori;
 use App\Produk;
 use Validator;
 use DB;
+use File;
 
 class ProdukController extends Controller
 {
@@ -66,6 +67,18 @@ class ProdukController extends Controller
         }
     }
 
+    protected function uniqueFilename($name, $ext) {
+        $output = $name;
+        $basename = basename($name, '.' . $ext);
+        $i = 2;
+        while(File::exists('uploads' . '/' . $output)) {
+            $output = $basename . $i . '.' . $ext;
+            $i ++;
+        }
+        return $output;
+    }
+
+
     public function index(Request $request)
     {
         $user = $request->user();
@@ -110,8 +123,9 @@ class ProdukController extends Controller
         if ($request->hasFile('foto')) {
             if ($request->file('foto')->isValid()) {
                 $dstPath = 'uploads';
+                $name = $request->file('foto')->getClientOriginalName();
                 $ext = $request->file('foto')->getClientOriginalExtension();
-                $file = $user->id . $toko->id . rand(11111,99999) . '.' . $ext;
+                $file = $this->uniqueFilename($name, $ext);
                 $request->file('foto')->move($dstPath, $file);
                 $data['foto'] = $file;
             }
