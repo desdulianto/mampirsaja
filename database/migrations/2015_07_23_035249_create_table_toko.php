@@ -24,7 +24,6 @@ class CreateTableToko extends Migration
             $table->string('propinsi');
             $table->timestamps();
         });
-
     }
 
     /**
