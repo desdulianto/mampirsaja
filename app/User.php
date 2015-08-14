@@ -45,4 +45,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function pesanan() {
         return $this->hasMany('App\Pesanan', 'user_id');
     }
+
+    public function reviews() {
+        return $this->hasMany('App\Review');
+    }
+
+    public function nama_lengkap() {
+        return $this->nama_depan . ' ' . $this->nama_belakang;
+    }
 }

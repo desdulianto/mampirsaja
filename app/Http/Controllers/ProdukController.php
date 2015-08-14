@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Produk;
 use App\Kategori;
+use App\Review;
+use Validator;
 
 class ProdukController extends Controller
 {
@@ -52,5 +54,54 @@ class ProdukController extends Controller
         }
 
         return redirect()->back()->with('alert-info',"Item $produk->nama sudah dimasukkan ke keranjang.");
+    }
+
+
+    public function detail($produk_id) {
+        $produk = Produk::findOrFail($produk_id);
+
+        return view('produk', ['produk'=>$produk]);
+    }
+
+    protected function validator_review(array $data)
+    {
+        return Validator::make($data, [
+            'tanggal'     => 'required',
+            'produk_id'   => 'required|exists:produk,id',
+            'review'      => 'required|max:255',
+        ]);
+    }
+
+    protected function createReview(array $data) {
+        return Review::create([
+            'tanggal'   => $data['tanggal'],
+            'user_id'   => $data['user_id'],
+            'produk_id' => $data['produk_id'],
+            'review'    => $data['review'],
+            ]);
+    }
+
+    public function review(Request $request, $produk_id) {
+        $user = $request->user();
+
+        if ($user)
+            $user_id = $user->id;
+        else
+            $user_id = null;
+
+        $request->merge(['user_id'=>$user_id, 'produk_id'=>$produk_id, 
+            'tanggal'=>date('Y-m-d')]);
+
+        $validator = $this->validator_review($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException (
+                $request, $validator
+            );
+        }
+
+        $this->createReview($request->all());
+
+        return redirect()->route('detailProduk', ['id'=>$produk_id])->with('alert-info', 'Review telah disimpan');
     }
 }

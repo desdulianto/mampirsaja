@@ -15,7 +15,7 @@
             <img src="{{URL::asset('assets/images/noimage.svg')}}">
             @endif
             <div class="caption">
-                <p>{{$produk->nama}}</p>
+                <p><a href ="{{route('detailProduk', ['id'=>$produk->id])}}">{{$produk->nama}}</a></p>
                 <p class="text-muted">{{$produk->kategori->name}}</p>
                 <p>{{$produk->deskripsi}}</p>
                 <p>{{$produk->harga}}</p>

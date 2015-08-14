@@ -49,6 +49,8 @@ Route::get('produk/new', ['as'=>'produkNew', 'uses'=>'Toko\ProdukController@baru
 Route::post('produk/new', ['as'=>'postProduk', 'uses'=>'Toko\ProdukController@baruPost']);
 
 Route::get('produk/beli/{id}', ['as'=>'beliProduk', 'uses'=>'ProdukController@beli']);
+Route::get('produk/detail/{id}', ['as'=>'detailProduk', 'uses'=>'ProdukController@detail']);
+Route::post('produk/review/{id}', ['as'=>'reviewProduk', 'uses'=>'ProdukController@review']);
 
 // cart route
 Route::get('cart', ['as'=>'cart', 'uses'=>'CartController@index']);

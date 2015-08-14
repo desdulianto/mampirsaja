@@ -25,4 +25,8 @@ class Produk extends Model
     public function pesanan_item() {
         return $this->hasMany('App\PesananDetails', 'produk_id');
     }
+
+    public function reviews() {
+        return $this->hasMany('App\Review');
+    }
 }
