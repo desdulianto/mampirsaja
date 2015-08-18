@@ -32,7 +32,14 @@
                 <td>Rp. {{$order->total_belanja($toko_id)}}</td>
                 <td>Rp. {{$order->ongkir($toko_id)}}</td>
                 <td>Rp. {{$order->total($toko_id)}}</td>
-                <td><span class="glyphicon glyphicon-{{$order->konfirmasi() ? 'ok' : 'remove'}}"></span></td>
+                <td>@if($order->lunas())
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @elseif ($order->konfirmasi())
+                    Menunggu penge-check-an
+                    @else
+                    <span class="glyphicon glyphicon-remove"></span>
+                    @endif
+                </td>
                 <td><span class="glyphicon glyphicon-{{$order->terkirim ? 'ok' : 'remove'}}"></span></td>
             </tr>
             @endforeach

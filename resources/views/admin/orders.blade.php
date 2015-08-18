@@ -16,7 +16,7 @@
                 <th>Terkirim</th>
             </tr>
             @foreach($orders as $order)
-            <tr>
+            <tr class="{{$order->konfirmasi() ? ($order->terkirim ? 'success' : 'info') : 'warning'}}">
                 <td>{{$order->tanggal}}</td>
                 <td>{{$order->id}}</td>
                 <td><address>
@@ -32,7 +32,15 @@
                 <td>Rp. {{$order->total_belanja()}}</td>
                 <td>Rp. {{$order->ongkir()}}</td>
                 <td>Rp. {{$order->total()}}</td>
-                <td><span class="glyphicon glyphicon-{{$order->konfirmasi() ? 'ok' : 'remove'}}"></span></td>
+                <td>
+                    @if ($order->lunas())
+                        <span class="glyphicon glyphicon-ok"></span>
+                    @elseif ($order->konfirmasi())
+                        <a href="{{route('checkPembayaran', ['id'=>$order->id])}}">Check Pembayaran</a>
+                    @else
+                        <span class="glyphicon glyphicon-remove"></span>
+                    @endif
+                </td>
                 <td><span class="glyphicon glyphicon-{{$order->terkirim ? 'ok' : 'remove'}}"></span></td>
             </tr>
             @endforeach

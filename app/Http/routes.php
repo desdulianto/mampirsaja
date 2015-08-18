@@ -66,6 +66,8 @@ Route::post('checkout/biaya', ['as'=>'checkoutBiayaKirim', 'uses'=>'CartControll
 // admin account
 Route::post('/home', ['as'=>'postAccount', 'uses'=>'AccountController@save']);
 Route::get('/orders', ['as'=>'adminOrders', 'uses'=>'Admin\AdminController@orders']);
+Route::get('/orders/pembayaran/{id}', ['as'=>'checkPembayaran', 'uses'=>'Admin\AdminController@checkPembayaran']);
+Route::post('/orders/pembayaran/{id}', ['as'=>'postCheckPembayaran', 'uses'=>'Admin\AdminController@checkPembayaran']);
 
 // pembeli account
 Route::get('/user/orders', ['as'=>'pembeliOrders', 'uses'=>'Pembeli\PembeliController@orders']);
