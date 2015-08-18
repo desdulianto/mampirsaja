@@ -17,4 +17,8 @@ class Pesanan extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    public function lunas() {
+        return $this->pembayaran_id != null;
+    }
 }

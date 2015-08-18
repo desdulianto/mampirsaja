@@ -42,6 +42,7 @@ Route::get('auth/reset', ['as'=>'resetPassword', 'uses'=>'Auth\PasswordControlle
 // toko route
 Route::get('toko', ['as'=>'toko', 'uses'=>'Toko\TokoController@index']);
 Route::post('toko', ['as'=>'postToko', 'uses'=>'Toko\TokoController@postToko']);
+Route::get('toko/orders', ['as'=>'tokoOrders', 'uses'=>'Toko\TokoController@listOrders']);
 
 // produk route
 Route::get('produk', ['as'=>'produk', 'uses'=>'Toko\ProdukController@index']);

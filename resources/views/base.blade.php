@@ -27,6 +27,7 @@
                 @if (Auth::user()->toko != null)
                 <li><a href="{{route('produk')}}">Produk</a></li>
                 @endif
+                <li><a href="{{route('tokoOrders')}}">Pesanan</a></li>
                 @endif
               </ul>
               @endif

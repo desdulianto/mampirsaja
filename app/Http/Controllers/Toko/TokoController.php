@@ -10,6 +10,8 @@ use App\User;
 use App\Propinsi;
 use Validator;
 
+use App\Pesanan;
+
 class TokoController extends Controller
 {
     public function __construct()
@@ -129,5 +131,20 @@ class TokoController extends Controller
         }
 
         return redirect()->route('toko')->with('alert-info', 'Toko berhasil diupdate!');
+    }
+
+    public function listOrders(Request $request) {
+        $user = $request->user();
+
+        if ($user->role != "penjual")
+            abort(404);
+
+        $toko = $user->toko;
+
+        $orders = Pesanan::join('pesanan_details', 'pesanan.id', '=', 
+            'pesanan_details.pesanan_id')->
+            where('pesanan_details.toko_id', $toko->id)->get();
+
+        return view('toko.orders', ['orders'=>$orders]);
     }
 }
