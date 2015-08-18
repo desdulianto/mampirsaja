@@ -35,7 +35,7 @@
                 <td>@if (! $order->konfirmasi())
                     <a class="btn btn-primary" role="button" href="{{route('confirmPembayaran', ['id'=>$order->id])}}">Konfirmasi</a>
                     @elseif (! $order->lunas())
-                    <span class="glyphicon glyphicon-usd"></span>
+                    Menunggu penge-check-an
                     @else
                     <span class="glyphicon glyphicon-ok"></span>
                     @endif
