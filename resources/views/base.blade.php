@@ -30,6 +30,8 @@
                     <li><a href="{{route('tokoOrders')}}">Pesanan</a></li>
                 @elseif (Auth::user()->role == "admin")
                     <li><a href="{{route('adminOrders')}}">Pesanan</a></li>
+                @else
+                    <li><a href="{{route('pembeliOrders')}}">Pesanan</a></li>
                 @endif
               </ul>
               @endif
