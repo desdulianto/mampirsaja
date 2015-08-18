@@ -33,7 +33,9 @@ class Pesanan extends Model
         // sudah dibayar dan dikonfirmasi oleh mampirsaja
         $pembayaran = $this->pembayaran;
 
-        return $pembayaran->konfirmasi;
+        if ($pembayaran != null)
+            return $pembayaran->konfirmasi;
+        return false;
     }
 
     public function total_belanja($toko_id = null) {
