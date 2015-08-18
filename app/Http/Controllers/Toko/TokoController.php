@@ -141,10 +141,11 @@ class TokoController extends Controller
 
         $toko = $user->toko;
 
-        $orders = Pesanan::join('pesanan_details', 'pesanan.id', '=', 
+        $orders = Pesanan::select('pesanan.*')
+            ->join('pesanan_details', 'pesanan.id', '=', 
             'pesanan_details.pesanan_id')->
             where('pesanan_details.toko_id', $toko->id)->get();
 
-        return view('toko.orders', ['orders'=>$orders]);
+        return view('toko.orders', ['orders'=>$orders, 'toko_id'=>$toko->id]);
     }
 }

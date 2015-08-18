@@ -22,16 +22,16 @@
                 <td><address>
                     {{$order->nama}}<br>
                     {{$order->alamat}}<br>
+                    {{$order->kode_pos}}<br>
                     {{$order->telepon}}<br>
                     {{$order->email}}<br>
-                    {{$order->kode_pos}}<br>
                     {{$order->kota}},
                     {{$order->propinsi}}
                     </address>
                 </td>
-                <td>Rp. {{$order->total_belanja($toko_id)}}</td>
-                <td>Rp. {{$order->ongkir($toko_id)}}</td>
-                <td>Rp. {{$order->total($toko_id)}}</td>
+                <td>Rp. {{$order->total_belanja()}}</td>
+                <td>Rp. {{$order->ongkir()}}</td>
+                <td>Rp. {{$order->total()}}</td>
                 <td><span class="glyphicon glyphicon-{{$order->lunas() ? 'ok' : 'remove'}}"></span></td>
                 <td><span class="glyphicon glyphicon-{{$order->terkirim ? 'ok' : 'remove'}}"></span></td>
             </tr>

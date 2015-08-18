@@ -23,11 +23,13 @@
               @if (Auth::check())
               <ul class="nav navbar-nav">
                 @if (Auth::user()->role == "penjual")
-                <li><a href="{{route('toko')}}">Toko</a></li>
-                @if (Auth::user()->toko != null)
-                <li><a href="{{route('produk')}}">Produk</a></li>
-                @endif
-                <li><a href="{{route('tokoOrders')}}">Pesanan</a></li>
+                    <li><a href="{{route('toko')}}">Toko</a></li>
+                    @if (Auth::user()->toko != null)
+                        <li><a href="{{route('produk')}}">Produk</a></li>
+                    @endif
+                    <li><a href="{{route('tokoOrders')}}">Pesanan</a></li>
+                @elseif (Auth::user()->role == "admin")
+                    <li><a href="{{route('adminOrders')}}">Pesanan</a></li>
                 @endif
               </ul>
               @endif
