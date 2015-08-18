@@ -24,7 +24,7 @@ class AdminController extends Controller
 
     public function checkPembayaran(Request $request) {
         $order_id = $request->id;
-        $order = Pesanan::find($order_id)->first();
+        $order = Pesanan::where('id', $order_id)->first();
 
         if ($order == null)
             abort(404);
