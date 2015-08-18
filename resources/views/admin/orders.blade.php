@@ -32,7 +32,7 @@
                 <td>Rp. {{$order->total_belanja()}}</td>
                 <td>Rp. {{$order->ongkir()}}</td>
                 <td>Rp. {{$order->total()}}</td>
-                <td><span class="glyphicon glyphicon-{{$order->lunas() ? 'ok' : 'remove'}}"></span></td>
+                <td><span class="glyphicon glyphicon-{{$order->konfirmasi() ? 'ok' : 'remove'}}"></span></td>
                 <td><span class="glyphicon glyphicon-{{$order->terkirim ? 'ok' : 'remove'}}"></span></td>
             </tr>
             @endforeach

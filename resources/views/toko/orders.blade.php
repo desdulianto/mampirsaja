@@ -16,7 +16,7 @@
                 <th>Terkirim</th>
             </tr>
             @foreach($orders as $order)
-            <tr>
+            <tr class="{{$order->konfirmasi() ? ($order->terkirim ? 'success' : 'info') : 'warning'}}">
                 <td>{{$order->tanggal}}</td>
                 <td>{{$order->id}}</td>
                 <td><address>
@@ -32,7 +32,7 @@
                 <td>Rp. {{$order->total_belanja($toko_id)}}</td>
                 <td>Rp. {{$order->ongkir($toko_id)}}</td>
                 <td>Rp. {{$order->total($toko_id)}}</td>
-                <td><span class="glyphicon glyphicon-{{$order->lunas() ? 'ok' : 'remove'}}"></span></td>
+                <td><span class="glyphicon glyphicon-{{$order->konfirmasi() ? 'ok' : 'remove'}}"></span></td>
                 <td><span class="glyphicon glyphicon-{{$order->terkirim ? 'ok' : 'remove'}}"></span></td>
             </tr>
             @endforeach

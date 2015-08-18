@@ -23,8 +23,17 @@ class Pesanan extends Model
         return $this->hasOne('App\Pembayaran', 'pesanan_id');
     }
 
+    public function konfirmasi() {
+        $pembayaran = $this->pembayaran;
+
+        return $pembayaran;
+    }
+
     public function lunas() {
-        return $this->pembayaran_id != null;
+        // sudah dibayar dan dikonfirmasi oleh mampirsaja
+        $pembayaran = $this->pembayaran;
+
+        return $pembayaran->konfirmasi;
     }
 
     public function total_belanja($toko_id = null) {
