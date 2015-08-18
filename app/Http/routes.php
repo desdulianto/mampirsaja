@@ -61,3 +61,7 @@ Route::get('checkout', ['as'=>'checkout', 'uses'=>'CartController@checkout']);
 //Route::post('checkout/alamat', ['as'=>'checkoutAlamat', 'uses'=>'CartController@checkoutAlamat']);
 Route::post('checkout/confirm', ['as'=>'checkoutConfirm', 'uses'=>'CartController@confirmOrder']);
 Route::post('checkout/biaya', ['as'=>'checkoutBiayaKirim', 'uses'=>'CartController@biayaXHR']);
+
+
+// admin account
+Route::post('/home', ['as'=>'postAccount', 'uses'=>'AccountController@save']);

@@ -49,7 +49,7 @@
             <td colspan="5">Rp. {{$total->ongkir + $total->total_belanja}}</td>
         </tr>
     </table>
-    <p>Pembayaran dapat dilakukan melalui transfer ke no. rekening xxxx atas nama xxxxx paling lambat 2 hari setelah waktu pemesanan.</p>
+    <p>{{ $cara_pembayaran }}</p>
 </div>
 </div>
 @endsection

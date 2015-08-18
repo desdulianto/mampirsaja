@@ -14,6 +14,7 @@ use App\Produk;
 use App\Ongkir;
 use App\Pesanan;
 use App\PesananDetails;
+use App\admin_config;
 
 class CartController extends Controller
 {
@@ -103,7 +104,7 @@ class CartController extends Controller
         if (Auth::check()) {
             return view('checkout', ['cart'=>$cart, 'kota'=>$kota, 'propinsi'=>$propinsi]);
         } else {
-            return view('auth.login_or_register', ['redir'=>'checkoutAlamat']);
+            return view('auth.login_or_register', ['redir'=>'checkout']);
         }
     }
 
@@ -116,7 +117,7 @@ class CartController extends Controller
             'propinsi'    => 'required|exists:propinsi',
             'kode_pos'    => 'required|max:50',
             'email'       => 'required|email',
-            'telepon'     => 'required|min:10',
+            'telepon'     => 'required',
         ]);
     }
 
@@ -199,13 +200,19 @@ class CartController extends Controller
         $request->session()->forget('cart');
         $request->session()->regenerate();
 
+        $config = admin_config::get_configs(); 
 
+        $cara_pembayaran = str_replace(['$nama', '$no_rekening', '$bank'],
+                                       [$config['nama'], $config['no_rekening'], $config['bank']],
+                                       $config['cara_pembayaran']);
+
+        $params = ['order'=>$order, 'total'=>$total, 'cara_pembayaran'=>$cara_pembayaran];
         // kirim invoice
-        Mail::send('invoice', ['order'=>$order, 'total'=>$total], function($pesan) use ($order) {
+        Mail::send('invoice', $params, function($pesan) use ($order) {
                     $pesan->to($order->email, $order->nama)->subject('Invoice Order ' . $order->id);
         });
 
-        return view('invoice', ['order'=>$order, 'total'=>$total]);
+        return view('invoice', $params);
     }
 
     protected function createPesanan($data) {
