@@ -63,11 +63,11 @@ Route::get('checkout', ['as'=>'checkout', 'uses'=>'CartController@checkout']);
 Route::post('checkout/confirm', ['as'=>'checkoutConfirm', 'uses'=>'CartController@confirmOrder']);
 Route::post('checkout/biaya', ['as'=>'checkoutBiayaKirim', 'uses'=>'CartController@biayaXHR']);
 
-
 // admin account
 Route::post('/home', ['as'=>'postAccount', 'uses'=>'AccountController@save']);
 Route::get('/orders', ['as'=>'adminOrders', 'uses'=>'Admin\AdminController@orders']);
 
-
 // pembeli account
 Route::get('/user/orders', ['as'=>'pembeliOrders', 'uses'=>'Pembeli\PembeliController@orders']);
+Route::get('/user/confirm/{id}', ['as'=>'confirmPembayaran', 'uses'=>'Pembeli\PembeliController@confirmPembayaran']);
+Route::post('/user/confirm/{id}', ['as'=>'postConfirmPembayaran', 'uses'=>'Pembeli\PembeliController@confirmPembayaran']);

@@ -16,7 +16,7 @@
                 <th>Terkirim</th>
             </tr>
             @foreach($orders as $order)
-            <tr class="{{$order->lunas() ? ($order()->terkirim() ? 'success' : 'info') : 'warning'}}">
+            <tr class="{{$order->lunas() ? ($order->terkirim ? 'success' : 'info') : 'warning'}}">
                 <td>{{$order->tanggal}}</td>
                 <td>{{$order->id}}</td>
                 <td><address>
