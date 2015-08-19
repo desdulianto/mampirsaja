@@ -44,7 +44,7 @@
                     <span class="glyphicon glyphicon-ok"></span>
                     @else
                     {{$order->items_terkirim($toko_id)}} / {{$order->banyak_items($toko_id)}}
-                    <a href="{{route('kirimOrder', ['id'=>$order->id])}}">Proses Pengiriman</a>
+                    <br><a href="{{route('kirimOrder', ['id'=>$order->id])}}">Proses Pengiriman</a>
                     @endif
                 </td>
             </tr>
