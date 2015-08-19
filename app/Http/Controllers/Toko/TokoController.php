@@ -141,7 +141,7 @@ class TokoController extends Controller
 
         $toko = $user->toko;
 
-        $orders = Pesanan::select('pesanan.*')
+        $orders = Pesanan::select('pesanan.*')->distinct()
             ->join('pesanan_details', 'pesanan.id', '=', 
             'pesanan_details.pesanan_id')->
             where('pesanan_details.toko_id', $toko->id)->get();
