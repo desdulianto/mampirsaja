@@ -40,7 +40,12 @@
                     <span class="glyphicon glyphicon-remove"></span>
                     @endif
                 </td>
-                <td><span class="glyphicon glyphicon-{{$order->terkirim ? 'ok' : 'remove'}}"></span></td>
+                <td>@if ($order->sudah_terkirim($toko_id))
+                    <span class="glyphicon glyphicon-ok"></span>
+                    @else
+                    <a href="{{route('kirimOrder', ['id'=>$order->id])}}">Proses Pengiriman</a>
+                    @endif
+                </td>
             </tr>
             @endforeach
         </table>

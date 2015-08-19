@@ -9,8 +9,10 @@ use App\Toko;
 use App\User;
 use App\Propinsi;
 use Validator;
+use File;
 
 use App\Pesanan;
+use App\PesananDetails;
 
 class TokoController extends Controller
 {
@@ -147,5 +149,72 @@ class TokoController extends Controller
             where('pesanan_details.toko_id', $toko->id)->get();
 
         return view('toko.orders', ['orders'=>$orders, 'toko_id'=>$toko->id]);
+    }
+
+    protected function uniqueFilename($name, $ext) {
+        $output = $name;
+        $basename = basename($name, '.' . $ext);
+        $i = 2;
+        while(File::exists('uploads/bukti' . '/' . $output)) {
+            $output = $basename . $i . '.' . $ext;
+            $i ++;
+        }
+        return $output;
+    }
+
+    protected function validator_bukti(array $data) {
+        return Validator::make($data, [
+                'bukti_kirim' => 'required|image'
+            ]);
+    }
+
+    public function kirim(Request $request) {
+        $user = $request->user();
+        $order_id = $request->id;
+
+        if ($user->role != "penjual")
+            abort(404);
+
+        $toko = $user->toko;
+
+        $order = Pesanan::where('id', $order_id)->first();
+        if ($order == null)
+            abort(404);
+
+        $items = [];
+        foreach ($order->items as $item) {
+            if ($item->toko->id != $toko->id)
+                continue;
+            array_push($items, $item);
+        }
+
+        if ($request->isMethod('post')) {
+            $validator = $this->validator_bukti($request->all());
+
+            if ($validator->fails()) {
+                $this->throwValidationException(
+                    $request, $validator
+                );
+            }
+
+            $dstPath = 'uploads/bukti';
+            $name = $request->file('bukti_kirim')->getClientOriginalName();
+            $ext  = $request->file('bukti_kirim')->getClientOriginalExtension();
+            $file = $this->uniqueFileName($name, $ext);
+            $request->file('bukti_kirim')->move($dstPath, $file);
+
+            foreach ($items as $item) {
+                $item->bukti_kirim = $file;
+                $item->save();
+            }
+
+            $order->update_kirim();
+
+            return redirect()->route('tokoOrders')->with('alert-info', 'Konfirmasi pengiriman telah disimpan');
+
+
+        } else
+            return view('toko.orderItems', ['order'=>$order, 
+            'toko'=>$toko, 'items'=>$items]);
     }
 }

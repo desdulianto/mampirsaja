@@ -68,4 +68,32 @@ class Pesanan extends Model
     public function total($toko_id = null) {
         return $this->total_belanja($toko_id) + $this->ongkir($toko_id);
     }
+
+    public function sudah_terkirim($toko_id) {
+        $terkirim = true;
+
+        foreach ($this->items as $item) {
+            if ($item->toko_id == $toko_id &&
+                $item->bukti_kirim == null) {
+                $terkirim = false;
+                break;
+            }
+        }
+
+        return $terkirim;
+    }
+
+    public function update_kirim() {
+        $terkirim = true;
+
+        foreach ($this->items as $item) {
+            if ($item->bukti_kirim == null) {
+                $terkirim = false;
+                break;
+            }
+        }
+
+        $this->terkirim = $terkirim;
+        $this->save();
+    }
 }

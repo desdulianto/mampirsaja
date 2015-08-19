@@ -8,7 +8,7 @@ class PesananDetails extends Model
 {
     protected $table = 'pesanan_details';
     protected $fillable =  ['pesanan_id', 'produk_id', 'nama', 'harga', 'qty', 
-        'berat', 'ongkir', 'toko_id' ] ;
+        'berat', 'ongkir', 'toko_id', 'bukti_kirim_id' ] ;
 
     public function pesanan() {
         return $this->belongsTo('App\Pesanan');
