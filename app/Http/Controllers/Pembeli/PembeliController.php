@@ -55,7 +55,7 @@ class PembeliController extends Controller
 
         $order = Pesanan::where('id', $order_id)->first();
 
-        if ($order == null)
+        if ($order->count() == 0)
             abort(404);
 
         if ($order->lunas())
