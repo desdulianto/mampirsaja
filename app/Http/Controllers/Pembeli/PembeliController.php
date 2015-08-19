@@ -85,7 +85,7 @@ class PembeliController extends Controller
             $order->pembayaran_id = $pembayaran->id;
             $order->save();
 
-            return redirect()->route('root')->with('alert-info', 'Konfirmasi pembayaran telah disimpan');
+            return redirect()->route('confirmPembayaran')->with('alert-info', 'Konfirmasi pembayaran telah disimpan');
         } else 
             return view('pembeli.confirmPembayaran', ['id'=>$order->id, 'order'=>$order]);
     }
