@@ -43,6 +43,7 @@
                 <td>@if ($order->sudah_terkirim($toko_id))
                     <span class="glyphicon glyphicon-ok"></span>
                     @else
+                    {{$order->items_terkirim($toko_id)}} / {{$order->banyak_items($toko_id)}}
                     <a href="{{route('kirimOrder', ['id'=>$order->id])}}">Proses Pengiriman</a>
                     @endif
                 </td>

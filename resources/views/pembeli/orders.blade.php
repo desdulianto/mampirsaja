@@ -39,7 +39,7 @@
                     @else
                     <span class="glyphicon glyphicon-ok"></span>
                     @endif
-                <td><span class="glyphicon glyphicon-{{$order->terkirim ? 'ok' : 'remove'}}"></span></td>
+                <td>{{$order->items_terkirim()}} / {{$order->banyak_items()}}</td>
             </tr>
             @endforeach
         </table>
