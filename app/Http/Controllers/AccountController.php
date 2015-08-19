@@ -38,6 +38,15 @@ class AccountController extends Controller
 
         $params = array_merge(['user'=>$user], $config);
 
+        if (! array_key_exists('nama', $params))
+            $params['nama'] = '';
+        if (! array_key_exists('no_rekening', $params))
+            $params['no_rekening'] = '';
+        if (! array_key_exists('bank', $params))
+            $params['bank'] = '';
+        if (! array_key_exists('cara_pembayaran', $params))
+            $params['cara_pembayaran'] = '';
+
         return view('account.admin', $params);
     }
 
