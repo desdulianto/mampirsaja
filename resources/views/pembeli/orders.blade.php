@@ -39,7 +39,11 @@
                     @else
                     <span class="glyphicon glyphicon-ok"></span>
                     @endif
-                <td>{{$order->items_terkirim()}} / {{$order->banyak_items()}}</td>
+                <td>{{$order->items_terkirim()}} / {{$order->banyak_items()}}
+                    @if ($order->items_terkirim() > 0)
+                    <br><a href="{{route('resiPengiriman', ['id'=>$order->id])}}">Resi Pengiriman</a>
+                    @endif
+                </td>
             </tr>
             @endforeach
         </table>

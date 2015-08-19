@@ -75,3 +75,4 @@ Route::post('/orders/pembayaran/{id}', ['as'=>'postCheckPembayaran', 'uses'=>'Ad
 Route::get('/user/orders', ['as'=>'pembeliOrders', 'uses'=>'Pembeli\PembeliController@orders']);
 Route::get('/user/confirm/{id}', ['as'=>'confirmPembayaran', 'uses'=>'Pembeli\PembeliController@confirmPembayaran']);
 Route::post('/user/confirm/{id}', ['as'=>'postConfirmPembayaran', 'uses'=>'Pembeli\PembeliController@confirmPembayaran']);
+Route::get('/user/pengiriman/{id}', ['as'=>'resiPengiriman', 'uses'=>'Pembeli\PembeliController@resiPengiriman']);

@@ -90,4 +90,13 @@ class PembeliController extends Controller
             return view('pembeli.confirmPembayaran', ['id'=>$order->id, 'order'=>$order]);
     }
 
+    public function resiPengiriman(Request $request) {
+        $order_id = $request->id;
+        $order = Pesanan::where('id', $order_id)->first();
+
+        if ($order->count() == 0)
+            abort(404);
+
+        return view('pembeli.resiPengiriman', ['order'=>$order]);
+    }
 }
