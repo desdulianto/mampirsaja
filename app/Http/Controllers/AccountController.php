@@ -73,7 +73,7 @@ class AccountController extends Controller
 
         foreach (['nama', 'no_rekening', 'bank', 'cara_pembayaran'] as $property) {
             $row = admin_config::where('property',$property);
-            if ($row == null)
+            if ($row->count() == 0)
                 admin_config::create(['property'=>$property, 'value'=>$data[$property]]);
             else
                 $row->update(['value'=>$data[$property]]);
