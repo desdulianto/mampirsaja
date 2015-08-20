@@ -21,4 +21,8 @@ class Toko extends Model
     public function pesanan_items() {
         return $this->hasMany('App\PesananDetails');
     }
+
+    public function threads() {
+        return $this->hasMany('App\Threads', 'toko_id');
+    }
 }

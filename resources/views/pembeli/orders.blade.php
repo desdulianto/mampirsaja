@@ -14,6 +14,7 @@
                 <th>Total</th>
                 <th>Lunas</th>
                 <th>Terkirim</th>
+                <th>Support</th>
             </tr>
             @foreach($orders as $order)
             <tr class="{{$order->konfirmasi() ? ($order->terkirim ? 'success' : 'info') : 'warning'}}">
@@ -47,6 +48,9 @@
                     @if ($order->items_terkirim() > 0)
                     <br><a href="{{route('resiPengiriman', ['id'=>$order->id])}}">Resi Pengiriman</a>
                     @endif
+                </td>
+                <td>
+                    <a href="{{route('listSupportPosts', ['id'=>$order->id])}}" class="btn btn-default">Support</a>
                 </td>
             </tr>
             @endforeach

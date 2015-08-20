@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use App\Ongkir;
+use App\Threads;
 
 class Pesanan extends Model
 {
@@ -21,6 +23,10 @@ class Pesanan extends Model
 
     public function pembayaran() {
         return $this->hasOne('App\Pembayaran', 'pesanan_id');
+    }
+
+    public function threads() {
+        return $this->hasMany('App\Threads', 'pesanan_id');
     }
 
     public function konfirmasi() {
@@ -120,5 +126,32 @@ class Pesanan extends Model
 
         $this->terkirim = $terkirim;
         $this->save();
+    }
+
+    public function items_per_toko($toko_id) {
+        $items = [];
+
+        foreach($this->items as $item) {
+            if ($item->toko_id == $toko_id)
+                array_push($items, $item);
+        }
+
+        return $items;
+    }
+
+    public function daftar_toko() {
+        $toko = [];
+
+        foreach($this->items as $item) {
+            array_push($toko, $item->toko);
+        }
+
+        return collect($toko)->unique();
+    }
+
+    public function get_thread($toko_id) {
+        $thread = Threads::where('pesanan_id', $this->id)->where('toko_id', $toko_id)->first();
+
+        return $thread;
     }
 }
