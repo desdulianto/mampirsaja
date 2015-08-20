@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use File;
 
 use App\Pesanan;
+use App\Toko;
 use App\Threads;
+use App\Posts;
 
 class SupportController extends Controller
 {
@@ -16,6 +19,18 @@ class SupportController extends Controller
     {
         $this->middleware('auth');
     }
+
+    protected function uniqueFilename($name, $ext) {
+        $output = $name;
+        $basename = basename($name, '.' . $ext);
+        $i = 2;
+        while(File::exists('uploads/lampiran' . '/' . $output)) {
+            $output = $basename . $i . '.' . $ext;
+            $i ++;
+        }
+        return $output;
+    }
+
 
     public function listSupportPosts(Request $request) {
         $order_id = $request->id;
@@ -31,6 +46,64 @@ class SupportController extends Controller
         $order_id = $request->order_id;
         $toko_id  = $request->toko_id;
 
-        return 'Order id: ' . $order_id . ' Toko id: ' . $toko_id;
+        $order = Pesanan::where('id', $order_id)->first();
+        $toko = Toko::where('id', $toko_id)->first();
+
+        if (! $order)
+            abort(404);
+
+        if (! $toko)
+            abort(404);
+
+        $thread = $order->get_thread($toko_id);
+
+        return view('support.thread', ['order'=>$order, 'toko'=>$toko, 'thread'=>$thread]);
+    }
+
+
+    public function newPost(Request $request) {
+    $order_id = $request->order_id;
+        $toko_id  = $request->toko_id;
+
+        $order = Pesanan::where('id', $order_id)->first();
+        $toko = Toko::where('id', $toko_id)->first();
+
+        if (! $order)
+            abort(404);
+
+        if (! $toko)
+            abort(404);
+
+        $file = null;
+        if ($request->isMethod('post')) {
+            $subjek = $request->subjek;
+            $pesan  = $request->pesan;
+
+            if ($request->hasFile('lampiran')) {
+                if ($request->file('lampiran')->isValid()) {
+                    $dstPath = 'uploads/lampiran';
+                    $name = $request->file('lampiran')->getClientOriginalName();
+                    $ext = $request->file('lampiran')->getClientOriginalExtension();
+                    $file = $this->uniqueFilename($name, $ext);
+                    $request->file('lampiran')->move($dstPath, $file);
+                }
+            }
+            $thread = Threads::create([
+                'pembeli_id' => $request->user()->id,
+                'penjual_id' => $toko->user->id,
+                'toko_id'    => $toko->id,
+                'pesanan_id' => $order->id,
+                'status'     => 'open'
+                ]);
+            $post = new Posts(['tanggal'   =>date('Y-m-d'),
+                               'dari'      =>$request->user()->id,
+                               'ref_post'  => null,
+                               'subjek'    =>$subjek,
+                               'pesan'     =>$pesan,
+                               'lampiran'  =>$file]);
+            $thread->posts()->save($post);
+            return redirect()->route('supportPost', ['order_id'=>$order->id, 'toko_id'=>$toko_id])->with('alert-info', 'Pesan telah terkirim');
+        } else 
+            return view('support.new', ['order'=>$order, 'toko'=>$toko]);
     }
 }

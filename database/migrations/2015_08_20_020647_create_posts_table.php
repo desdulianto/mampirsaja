@@ -17,7 +17,6 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('thread_id');
             $table->date('tanggal');
             $table->unsignedInteger('dari');
-            $table->string('kepada');
             $table->unsignedInteger('ref_post')->nullable();
             $table->string('subjek');
             $table->text('pesan');

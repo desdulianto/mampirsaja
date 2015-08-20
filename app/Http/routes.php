@@ -81,3 +81,6 @@ Route::get('/user/pengiriman/{id}', ['as'=>'resiPengiriman', 'uses'=>'Pembeli\Pe
 // support route
 Route::get('/support/order/{id}', ['as'=>'listSupportPosts', 'uses'=>'SupportController@listSupportPosts']);
 Route::get('/support/order/{order_id}/{toko_id}', ['as'=>'supportPost', 'uses'=>'SupportController@supportPosts']);
+Route::get('/support/order/{order_id}/{toko_id}/new', ['as'=>'newSupportPost', 'uses'=>'SupportController@newPost']);
+Route::post('/support/order/{order_id}/{toko_id}/new', ['as'=>'newSupportPost', 'uses'=>'SupportController@newPost']);
+Route::post('/support/order/{order_id}/{toko_id}/new', ['as'=>'postNewSupportPost', 'uses'=>'SupportController@newPost']);

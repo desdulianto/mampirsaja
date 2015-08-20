@@ -24,4 +24,8 @@ class Threads extends Model
     public function toko() {
         return $this->hasOne('App\User');
     }
+
+    public function posts() {
+        return $this->hasMany('App\Posts', 'thread_id');
+    }
 }
