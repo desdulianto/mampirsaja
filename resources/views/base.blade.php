@@ -99,7 +99,7 @@
         </div>
         <footer class="footer">
           <div class="container">
-                <p class="text-muted text-center">Hak Cipta &copy; 2013-2014 mampirsaja.com</p>
+                <p class="text-muted text-center">Hak Cipta &copy; 2015 mampirsaja.com</p>
           </div>
         </footer>
         <script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
