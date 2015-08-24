@@ -13,7 +13,7 @@ class Posts extends Model
         return $this->belongsTo('App\Threads');
     }
 
-    public function pengirim() {
-        return $this->belongsTo('App\User');
+    public function user() {
+        return $this->belongsTo('App\User', 'dari');
     }
 }

@@ -84,3 +84,6 @@ Route::get('/support/order/{order_id}/{toko_id}', ['as'=>'supportPost', 'uses'=>
 Route::get('/support/order/{order_id}/{toko_id}/new', ['as'=>'newSupportPost', 'uses'=>'SupportController@newPost']);
 Route::post('/support/order/{order_id}/{toko_id}/new', ['as'=>'newSupportPost', 'uses'=>'SupportController@newPost']);
 Route::post('/support/order/{order_id}/{toko_id}/new', ['as'=>'postNewSupportPost', 'uses'=>'SupportController@newPost']);
+Route::get('/support/order/{order_id}/{toko_id}/reply', ['as'=>'replySupportPost', 'uses'=>'SupportController@replyPost']);
+Route::post('/support/order/{order_id}/{toko_id}/reply', ['as'=>'postReplySupportPost', 'uses'=>'SupportController@replyPost']);
+Route::get('/support/order/{order_id}/{toko_id}/close', ['as'=>'tutupSupportPost', 'uses'=>'SupportController@tutupTicket']);

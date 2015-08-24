@@ -14,6 +14,7 @@
                 <th>Total</th>
                 <th>Lunas</th>
                 <th>Terkirim</th>
+                <th>Support</th>
             </tr>
             @foreach($orders as $order)
             <tr class="{{$order->konfirmasi() ? ($order->terkirim ? 'success' : 'info') : 'warning'}}">
@@ -45,6 +46,10 @@
                     @else
                     {{$order->items_terkirim($toko_id)}} / {{$order->banyak_items($toko_id)}}
                     <br><a href="{{route('kirimOrder', ['id'=>$order->id])}}">Proses Pengiriman</a>
+                    @endif
+                </td>
+                <td>@if ($order->get_thread($toko_id))
+                    <a href="{{route('supportPost', ['order_id'=>$order->id, 'toko_id'=>$toko_id])}}">Support</a>
                     @endif
                 </td>
             </tr>

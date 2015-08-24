@@ -7,7 +7,7 @@
         <h2 class="text-center">Order No. {{$order->id}}</h2>
         <h2 class="text-center">Toko {{$toko->nama}}</h2>
 
-        {!! Form::open(array('route'=>array('postNewSupportPost', 'order_id'=>$order->id, 'toko_id'=>$toko->id), 'files'=>true, 'class'=>'form-horizontal col-sm-8 col-sm-offset-2')) !!}
+        {!! Form::open(array('route'=>array('postReplySupportPost', 'order_id'=>$order->id, 'toko_id'=>$toko->id), 'files'=>true, 'class'=>'form-horizontal col-sm-8 col-sm-offset-2')) !!}
     {!! csrf_field() !!}
 
             <div class="form-group">
@@ -29,6 +29,9 @@
             </div>
             </div>
             <div class="col-sm-3 col-sm-offset-9">
+            @if (Auth::user()->role == "pembeli" || Auth::user()->role == "admin")
+            <a href="{{route('tutupSupportPost', ['order_id'=>$order->id, 'toko_id'=>$toko->id])}}" class="btn btn-primary">Tutup Ticket</a>
+            @endif
             <input type="submit" value="Kirim" class="btn btn-default">
             </div>
         {!! Form::close() !!}

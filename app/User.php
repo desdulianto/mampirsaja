@@ -58,8 +58,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Threads', 'penjual_id');
     }
 
-    public function kirim_posts() {
-        return $this->hasMany('App\Posts', 'dari');
+    public function posts() {
+        return $this->hasMany('App\Posts', 'dari', 'id');
     }
 
     public function nama_lengkap() {
