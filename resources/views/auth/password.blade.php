@@ -6,7 +6,7 @@
 <div class="col-sm-offset-4 col-sm-4 panel panel-default">
 <div class="panel-body">
     <h1 class="text-center">Lupa Password</h1>
-<form method="POST" action="/password/email" class="form-horizontal">
+<form method="POST" action="{{route('postResetPassword')}}" class="form-horizontal">
     {!! csrf_field() !!}
 
     <div class="form-group">

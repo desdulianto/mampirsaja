@@ -39,6 +39,9 @@ Route::get('auth/confirm/{kode}', ['as'=>'register-confirm', 'uses'=>'Auth\AuthC
 
 // reset password route
 Route::get('auth/reset', ['as'=>'resetPassword', 'uses'=>'Auth\PasswordController@getEmail']);
+Route::post('auth/reset', ['as'=>'postResetPassword', 'uses'=>'Auth\PasswordController@postEmail']);
+Route::get('password/reset/{token}', ['as'=>'resetPasswordToken', 'uses'=>'Auth\PasswordController@getReset']);
+Route::post('password/reset', ['as'=>'postResetPasswordToken', 'uses'=>'Auth\PasswordController@postReset']);
 
 
 // toko route
@@ -89,3 +92,7 @@ Route::post('/support/order/{order_id}/{toko_id}/new', ['as'=>'postNewSupportPos
 Route::get('/support/order/{order_id}/{toko_id}/reply', ['as'=>'replySupportPost', 'uses'=>'SupportController@replyPost']);
 Route::post('/support/order/{order_id}/{toko_id}/reply', ['as'=>'postReplySupportPost', 'uses'=>'SupportController@replyPost']);
 Route::get('/support/order/{order_id}/{toko_id}/close', ['as'=>'tutupSupportPost', 'uses'=>'SupportController@tutupTicket']);
+
+// lelang route
+Route::get('/toko/lelang', ['as'=>'lelang', 'uses'=>'Toko\LelangController@index']);
+Route::get('/toko/lelang/new', ['as'=>'newLelang', 'uses'=>'Toko\LelangController@baru']);
