@@ -21,6 +21,9 @@
             <dt>Toko</dt>
             <dd>{{$produk->toko->nama}}</dd>
         </dl>
+        <a href="{{route('beliProduk', ['produk'=>$produk->id])}}" type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-shopping-cart">Masukkan ke keranjang</span>
+        </a>
     </div>
 </div>
 <div class="row">
