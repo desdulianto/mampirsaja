@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', ['as'=>'root', function() {
+/*Route::get('/', ['as'=>'root', function() {
     return view('base');
-}]);
+}]);*/
+
+Route::get('/', ['as'=>'root', 'uses'=>'ProdukController@show']);
 
 Route::get('/home', ['as'=>'account', 'uses'=>'AccountController@index']);
 
