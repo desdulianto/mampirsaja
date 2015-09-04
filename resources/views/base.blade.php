@@ -51,6 +51,7 @@
                 <li><a href="{{route('register-role')}}">Registrasi</a></li>
                 <li><a href="{{route('login')}}">Login</a></li>
               @else
+                <li><a href="{{route('messages')}}">Pesan</a></li>
                 <li><a href="{{route('account')}}">{{Auth::user()->nama_depan}} {{Auth::user()->nama_belakang}}</a></li>
                 <li><a href="/auth/logout">Logout</a></li>
               @endif

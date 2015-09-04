@@ -65,4 +65,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function nama_lengkap() {
         return $this->nama_depan . ' ' . $this->nama_belakang;
     }
+
+    public function pengirim() {
+        return $this->hasMany('App\Messages', 'dari_id');
+    }
+
+    public function penerima() {
+        return $this->hasMany('App\Messages', 'kepada_id');
+    }
 }

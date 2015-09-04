@@ -96,3 +96,11 @@ Route::get('/support/order/{order_id}/{toko_id}/close', ['as'=>'tutupSupportPost
 // lelang route
 Route::get('/toko/lelang', ['as'=>'lelang', 'uses'=>'Toko\LelangController@index']);
 Route::get('/toko/lelang/new', ['as'=>'newLelang', 'uses'=>'Toko\LelangController@baru']);
+
+// message route
+Route::get('/messages', ['as'=>'messages', 'uses'=>'MessageController@index']);
+Route::get('/messages/compose', ['as'=>'compose', 'uses'=>'MessageController@compose']);
+Route::post('/messages/compose', ['as'=>'postCompose', 'uses'=>'MessageController@compose']);
+Route::get('/messages/read/{id}', ['as'=>'read', 'uses'=>'MessageController@read']);
+Route::get('/messages/reply/{id}', ['as'=>'reply', 'uses'=>'MessageController@reply']);
+Route::post('/messages/reply/{id}', ['as'=>'postReply', 'uses'=>'MessageController@reply']);
