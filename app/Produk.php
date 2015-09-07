@@ -29,4 +29,8 @@ class Produk extends Model
     public function reviews() {
         return $this->hasMany('App\Review');
     }
+
+    public function stockTersedia() {
+        return $this->stock > 0;
+    }
 }

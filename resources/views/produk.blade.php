@@ -18,12 +18,22 @@
             <dd>Rp. {{$produk->harga}}</dd>
             <dt>Berat</dt>
             <dd>{{$produk->berat}} kg</dd>
+            <dt>Stock</dt>
+            @if ($produk->stockTersedia())
+            <dd>{{$produk->stock}}</dd>
+            @else
+            <dd>Habis</dd>
+            @endif
             <dt>Toko</dt>
             <dd>{{$produk->toko->nama}}</dd>
         </dl>
+        @if ((Auth::check() && Auth::user()->role != 'admin' &&
+                               Auth::user()->role != 'penjual') ||
+             ! Auth::check())
         <a href="{{route('beliProduk', ['produk'=>$produk->id])}}" type="button" class="btn btn-primary">
         <span class="glyphicon glyphicon-shopping-cart">Masukkan ke keranjang</span>
         </a>
+        @endif
     </div>
 </div>
 <div class="row">
