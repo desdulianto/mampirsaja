@@ -42,11 +42,13 @@
     {!! Form::select('kota', $kota, null, array('class'=>'form-control')) !!}
     </div>
 </div>
+@if (count($toko->pesanan_items()) == 0)
 <div class="form-group">
     <div class="text-right">
         {!! Form::submit('Simpan', array('class'=>'btn btn-default')) !!}
     </div>
 </div>
+@endif
 {!! Form::close() !!}
 </div>
 </div>
