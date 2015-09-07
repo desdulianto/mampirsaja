@@ -1,5 +1,9 @@
 @extends('base')
 
+@section('style')
+<link href="{{ URL::asset('assets/js/select2/select2.css')}}" rel="stylesheet">
+@endsection
+
 @section('body')
 <div class="row">
     <div class="col-sm-12">
@@ -8,7 +12,7 @@
             <div class="form-group">
             <label for="kepada" class="col-sm-2">Kepada</label>
             <div class="col-sm-10">
-                <input type="text" name="kepada" id="kepada" class="form-control" value="{{old('kepada')}}">
+                {!! Form::select('kepada', $users, null, array('class'=>'select2', 'id'=>'kepada')) !!}
             </div>
             </div>
 
@@ -31,4 +35,13 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script type="text/javascript" src="{{URL::asset('assets/js/select2/select2.min.js')}}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".select2").select2();
+});
+</script>
 @endsection

@@ -75,7 +75,12 @@ class MessageController extends Controller
 
             return redirect()->route('messages')->with('alert-info', 'Pesan telah terkirim');
         } else {
-            return view('message.compose');
+
+            $users = User::where('id', '<>', $user->id)->lists('username', 'username');
+
+            $users[""] = "-- username --";
+
+            return view('message.compose', ['users'=>$users]);
         }
     }
 
