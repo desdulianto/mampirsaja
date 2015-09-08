@@ -19,11 +19,7 @@
             <dt>Berat</dt>
             <dd>{{$produk->berat}} kg</dd>
             <dt>Stock</dt>
-            @if ($produk->stockTersedia())
             <dd>{{$produk->stock}}</dd>
-            @else
-            <dd>Habis</dd>
-            @endif
             <dt>Toko</dt>
             <dd>{{$produk->toko->nama}}</dd>
         </dl>

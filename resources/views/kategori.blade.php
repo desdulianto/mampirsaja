@@ -19,11 +19,7 @@
                 <p class="text-muted">{{$produk->kategori->name}}</p>
                 <p>{{$produk->deskripsi}}</p>
                 <p>Harga: {{$produk->harga}}</p>
-                @if ($produk->stockTersedia())
-                <p>Stock tersedia ({{$produk->stock}})</p>
-                @else
-                <p>Stock habis</p>
-                @endif
+                <p>Stock: {{$produk->stock}}</p>
             </div>
             @if ((Auth::check() && Auth::user()->role != 'admin' &&
                                    Auth::user()->role != 'penjual') ||
