@@ -73,4 +73,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function penerima() {
         return $this->hasMany('App\Messages', 'kepada_id');
     }
+
+    public function status() {
+        if ($this->konfirmasi)
+            return 'Aktif';
+        else
+            return 'Tidak Aktif';
+    }
 }

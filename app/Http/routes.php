@@ -104,3 +104,6 @@ Route::post('/messages/compose', ['as'=>'postCompose', 'uses'=>'MessageControlle
 Route::get('/messages/read/{id}', ['as'=>'read', 'uses'=>'MessageController@read']);
 Route::get('/messages/reply/{id}', ['as'=>'reply', 'uses'=>'MessageController@reply']);
 Route::post('/messages/reply/{id}', ['as'=>'postReply', 'uses'=>'MessageController@reply']);
+
+// report
+Route::get('/users', ['as'=>'users', 'uses'=>'Admin\UserController@index']);
