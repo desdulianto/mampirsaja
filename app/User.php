@@ -80,4 +80,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         else
             return 'Tidak Aktif';
     }
+
+    public function registered() {
+        return $this->created_at->timezone('Asia/Jakarta');
+    }
 }
