@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Mail;
 use App\User;
+use App\LastLogin;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -162,6 +163,10 @@ class AuthController extends Controller
         $credentials['konfirmasi'] = true;
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
+            $user = $request->user();
+            $id = $user->id;
+            $last = new LastLogin(['user_id'=>$id]);
+            $user->last_login()->save($last);
             return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
