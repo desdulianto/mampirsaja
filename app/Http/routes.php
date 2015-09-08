@@ -105,5 +105,6 @@ Route::get('/messages/read/{id}', ['as'=>'read', 'uses'=>'MessageController@read
 Route::get('/messages/reply/{id}', ['as'=>'reply', 'uses'=>'MessageController@reply']);
 Route::post('/messages/reply/{id}', ['as'=>'postReply', 'uses'=>'MessageController@reply']);
 
-// report
+// report user
 Route::get('/users', ['as'=>'users', 'uses'=>'Admin\UserController@index']);
+Route::get('/user/{username}', ['as'=>'user', 'uses'=>'Admin\UserController@detail']);

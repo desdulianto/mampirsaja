@@ -12,16 +12,18 @@
             <th>Role</th>
             <th>Status</th>
             <th>Tanggal Register</th>
+            <th>Terakhir Login</th>
             <th>Aksi</th>
             </tr>
             @foreach ($users as $user)
             <tr>
-            <td>{{$user->nama_lengkap()}}</td>
-            <td>{{$user->username}}</td>
+            <td><a href="{{route('user', ['username'=>$user->username])}}">{{$user->nama_lengkap()}}</a></td>
+            <td><a href="{{route('user', ['username'=>$user->username])}}">{{$user->username}}</a></td>
             <td>{{$user->email}}</td>
             <td>{{$user->role}}</td>
             <td>{{$user->status()}}</td>
             <td>{{$user->registered()}}</td>
+            <td>{{$user->latest_login()}}</td>
             <td>@if ($user->role != 'admin')
                 <a href="" title="Block user"><span class="glyphicon glyphicon-remove"></span></a>
                 @endif

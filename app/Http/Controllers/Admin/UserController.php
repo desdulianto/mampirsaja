@@ -20,4 +20,13 @@ class UserController extends Controller
         $users = User::get();
         return view('admin.users', ['users'=>$users]);
     }
+
+    public function detail(Request $request) {
+        $user = User::where('username', $request->username)->first();
+
+        if ($user == null)
+            abort(404);
+
+        return view('admin.user', ['user'=>$user]);
+    }
 }

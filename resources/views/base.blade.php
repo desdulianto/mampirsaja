@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="{{ URL::asset('assets/bootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('assets/bootstrap/css/bootstrap-theme.min.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('assets/css/sticky-footer.css')}}">
+        @section('style')
+        @show
     </head>
     <body>
         <nav class="navbar">
@@ -30,6 +32,7 @@
                     @endif
                 @elseif (Auth::user()->role == "admin")
                     <li><a href="{{route('adminOrders')}}">Pesanan</a></li>
+                    <li><a href="{{route('users')}}">Users</a></li>
                 @else
                     <li><a href="{{route('pembeliOrders')}}">Pesanan</a></li>
                 @endif

@@ -8,6 +8,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+use Carbon\Carbon;
+
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
@@ -83,5 +85,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function registered() {
         return $this->created_at->timezone('Asia/Jakarta');
+    }
+
+    public function last_login() {
+        return $this->hasMany('App\LastLogin', 'user_id', 'id');
+    }
+
+    public function latest_login() {
+        $last = $this->last_login()->orderBy('created_at', 'desc')->first();
+        if ($last != null) {
+            return (new Carbon($last['created_at']))->timezone('Asia/Jakarta');
+        } else
+            return null;
     }
 }
