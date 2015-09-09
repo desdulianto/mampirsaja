@@ -25,7 +25,11 @@
             <td>{{$user->registered()}}</td>
             <td>{{$user->latest_login()}}</td>
             <td>@if ($user->role != 'admin')
-                <a href="" title="Block user"><span class="glyphicon glyphicon-remove"></span></a>
+                @if ($user->status() == 'Aktif')
+                <a href="{{route('blockUser', ['username'=>$user->username])}}" title="Block user"><span class="glyphicon glyphicon-remove"></span></a>
+                @else
+                <a href="{{route('unblockUser', ['username'=>$user->username])}}" title="Unblock user"><span class="glyphicon glyphicon-ok"></span></a>
+                @endif
                 @endif
             </td>
             </tr>

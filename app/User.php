@@ -79,8 +79,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function status() {
         if ($this->konfirmasi)
             return 'Aktif';
-        else
-            return 'Tidak Aktif';
+        else {
+            $alasan = $this->alasan()->orderBy('id', 'desc')->first();
+            if ($alasan != null)
+                return "Tidak Aktif ($alasan->alasan)";
+            else
+                return 'Belum konfirmasi registrasi';
+        }
     }
 
     public function registered() {
@@ -97,5 +102,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             return (new Carbon($last['created_at']))->timezone('Asia/Jakarta');
         } else
             return null;
+    }
+
+    public function alasan() {
+        return $this->hasMany('App\BlockUser', 'user_id', 'id');
+    }
+
+    public function alasan_block() {
+        $alasan = $this->alasan()->orderBy('id', 'desc')->first();
+
+        return $alasan->alasan;
     }
 }
