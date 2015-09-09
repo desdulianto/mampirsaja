@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\admin_config;
 use Validator;
+use File;
+
+use App\UserInfo;
+use App\Propinsi;
 
 class AccountController extends Controller
 {
@@ -19,8 +23,10 @@ class AccountController extends Controller
         $user = $request->user();
         if ($user->role == "admin")
             return $this->AdminAccount($user);
-        else
-            return view('account.index', ['account'=>$user]);
+        else {
+            $propinsi = Propinsi::all()->lists('propinsi', 'propinsi');
+            return view('account.index', ['account'=>$user, 'propinsi'=>$propinsi]);
+        }
     }
 
     public function save(Request $request) {
@@ -114,5 +120,78 @@ class AccountController extends Controller
         } else {
             return redirect()->route('account')->with('alert-danger', 'Password salah');
         }
+    }
+
+    protected function validator_info(array $data) {
+        return Validator::make($data, [
+            'nama_depan'    => 'required:max:255',
+            'nama_belakang' => 'required:max:255',
+            'gender'        => 'required|in:male,female',
+            'email'         => 'required|email',
+            'alamat'        => 'max:255',
+            'kota'          => 'max:255',
+            'propinsi'      => 'max:255',
+            'telepon'       => 'max:30'
+            ]);
+    }
+
+    protected function uniqueFilename($name, $ext) {
+        $output = $name;
+        $basename = basename($name, '.' . $ext);
+        $i = 2;
+        while(File::exists('uploads' . '/' . $output)) {
+            $output = $basename . $i . '.' . $ext;
+            $i ++;
+        }
+        return $output;
+    }
+
+    public function ubahInfo(Request $request) {
+        $user = $request->user();
+
+        $validator = $this->validator_info($request->all());
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+
+
+        if ($user->info()->first() == null) {
+        $info = new UserInfo(['alamat'  =>$request->alamat,
+                              'kota'    =>$request->kota,
+                              'propinsi'=>$request->propinsi,
+                              'telepon' =>$request->telepon]);
+        } else {
+            $user->nama_depan    = $request->nama_depan;
+            $user->nama_belakang = $request->nama_belakang;
+            $user->gender        = $request->gender;
+            $user->email         = $request->email;
+            $info                = $user->info()->first();
+            $info->alamat        = $request->alamat;
+            $info->kota          = $request->kota;
+            $info->propinsi      = $request->propinsi;
+            $info->telepon       = $request->telepon;
+        }
+
+        if ($request->hapus_foto && $info->foto != null) {
+            File::delete('uploads/' . $info->foto);
+            $info->foto = null;
+        } else if ($request->hasFile('foto')) {
+            if ($request->file('foto')->isValid()) {
+                $dstPath = 'uploads';
+                $name = $request->file('foto')->getClientOriginalName();
+                $ext = $request->file('foto')->getClientOriginalExtension();
+                $file = $this->uniqueFilename($name, $ext);
+                $request->file('foto')->move($dstPath, $file);
+                $info->foto = $file;
+            }
+        }
+
+        $user->info()->save($info);
+        $user->save();
+
+        return redirect()->route('account')->with('alert-info', 'Informasi user berhasil di-update');
     }
 }

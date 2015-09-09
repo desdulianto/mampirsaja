@@ -20,6 +20,7 @@ return array(
     'CreateReviewsTable' => $baseDir . '/database/migrations/2015_08_14_163620_create_reviews_table.php',
     'CreateTableToko' => $baseDir . '/database/migrations/2015_07_23_035249_create_table_toko.php',
     'CreateThreadsTable' => $baseDir . '/database/migrations/2015_08_20_020628_create_threads_table.php',
+    'CreateUserInfosTable' => $baseDir . '/database/migrations/2015_09_09_060847_create_user_infos_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

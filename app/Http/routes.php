@@ -20,6 +20,7 @@ Route::get('/', ['as'=>'root', 'uses'=>'ProdukController@show']);
 Route::get('/home', ['as'=>'account', 'uses'=>'AccountController@index']);
 //Route::get('/home', ['as'=>'account', 'uses'=>'ProdukController@show']);
 Route::post('/password', ['as'=>'ubahPassword', 'uses'=>'AccountController@ubahPassword']);
+Route::post('/info', ['as'=>'ubahInfo', 'uses'=>'AccountController@ubahInfo']);
 
 
 // route for kategori

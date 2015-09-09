@@ -114,4 +114,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         return $alasan->alasan;
     }
+
+    public function info() {
+        return $this->hasOne('App\UserInfo', 'user_id', 'id');
+    }
 }
