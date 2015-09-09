@@ -31,6 +31,7 @@ class UserController extends Controller
 
         return view('admin.user', ['user'=>$user]);
     }
+<<<<<<< HEAD
 
     public function block(Request $request) {
         $user = User::where('username', $request->username)->first();
@@ -77,4 +78,6 @@ class UserController extends Controller
         return redirect()->route('users')->with('alert-info', "user $user->username sudah di aktifkan kembali");
     }
 
+=======
+>>>>>>> f2f87a4b6d48007d60c396f5936e992ab8106bf7
 }

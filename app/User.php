@@ -97,12 +97,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     public function latest_login() {
+<<<<<<< HEAD
         $last = $this->last_login()->orderBy('created_at', 'desc')->first();
+=======
+        $last = $this->last_login()->orderBy('created_at', 'desc')->take(1)->first();
+>>>>>>> f2f87a4b6d48007d60c396f5936e992ab8106bf7
         if ($last != null) {
             return (new Carbon($last['created_at']))->timezone('Asia/Jakarta');
         } else
             return null;
     }
+<<<<<<< HEAD
 
     public function alasan() {
         return $this->hasMany('App\BlockUser', 'user_id', 'id');
@@ -113,4 +118,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         return $alasan->alasan;
     }
+=======
+>>>>>>> f2f87a4b6d48007d60c396f5936e992ab8106bf7
 }
