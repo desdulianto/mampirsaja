@@ -108,8 +108,5 @@ Route::post('/messages/reply/{id}', ['as'=>'postReply', 'uses'=>'MessageControll
 // report user
 Route::get('/users', ['as'=>'users', 'uses'=>'Admin\UserController@index']);
 Route::get('/user/{username}', ['as'=>'user', 'uses'=>'Admin\UserController@detail']);
-<<<<<<< HEAD
 Route::get('/user/block/{username}', ['as'=>'blockUser', 'uses'=>'Admin\UserController@block']);
 Route::get('/user/unblock/{username}', ['as'=>'unblockUser', 'uses'=>'Admin\UserController@unblock']);
-=======
->>>>>>> f2f87a4b6d48007d60c396f5936e992ab8106bf7
