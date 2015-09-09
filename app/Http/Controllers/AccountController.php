@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\admin_config;
 use Validator;
 
@@ -18,7 +20,7 @@ class AccountController extends Controller
         if ($user->role == "admin")
             return $this->AdminAccount($user);
         else
-            return view('account.index');
+            return view('account.index', ['account'=>$user]);
     }
 
     public function save(Request $request) {
@@ -80,5 +82,37 @@ class AccountController extends Controller
         }
 
         return redirect()->route('account')->with('alert-info', "Konfigurasi sudah tersimpan");
+    }
+
+    protected function validator_password(array $data) {
+        return Validator::make($data, [
+            'password'         => 'required|min:6',
+            'confirm_password' => 'required|same:password'
+            ]);
+    }
+
+    public function ubahPassword(Request $request) {
+        $user = $request->user();
+
+        $old_password = $request->old_password;
+        $password = $request->password;
+        $confirm_password = $request->confirm_password;
+
+        $credentials = ['username' => $user->username, 'password'=>$old_password];
+        if (Auth::validate($credentials)) {
+            $validator = $this->validator_password($request->all());
+            if ($validator->fails()) {
+                $this->throwValidationException(
+                    $request, $validator
+                );
+            }
+
+            $user->password = Hash::make($password);
+            $user->save();
+
+            return redirect()->route('account')->with('alert-info', 'Password sudah diganti');
+        } else {
+            return redirect()->route('account')->with('alert-danger', 'Password salah');
+        }
     }
 }
