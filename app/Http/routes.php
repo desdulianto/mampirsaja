@@ -63,6 +63,8 @@ Route::get('produk/beli/{id}', ['as'=>'beliProduk', 'uses'=>'ProdukController@be
 Route::get('produk/detail/{id}', ['as'=>'detailProduk', 'uses'=>'ProdukController@detail']);
 Route::post('produk/review/{id}', ['as'=>'reviewProduk', 'uses'=>'ProdukController@review']);
 
+Route::get('produk/cari/', ['as'=>'cariProduk', 'uses'=>'ProdukController@cari']);
+
 // cart route
 Route::get('cart', ['as'=>'cart', 'uses'=>'CartController@index']);
 Route::get('cart/del/{index}', ['as'=>'delCart', 'uses'=>'CartController@del']);
@@ -97,8 +99,8 @@ Route::post('/support/order/{order_id}/{toko_id}/reply', ['as'=>'postReplySuppor
 Route::get('/support/order/{order_id}/{toko_id}/close', ['as'=>'tutupSupportPost', 'uses'=>'SupportController@tutupTicket']);
 
 // lelang route
-Route::get('/toko/lelang', ['as'=>'lelang', 'uses'=>'Toko\LelangController@index']);
-Route::get('/toko/lelang/new', ['as'=>'newLelang', 'uses'=>'Toko\LelangController@baru']);
+//Route::get('/toko/lelang', ['as'=>'lelang', 'uses'=>'Toko\LelangController@index']);
+//Route::get('/toko/lelang/new', ['as'=>'newLelang', 'uses'=>'Toko\LelangController@baru']);
 
 // message route
 Route::get('/messages', ['as'=>'messages', 'uses'=>'MessageController@index']);

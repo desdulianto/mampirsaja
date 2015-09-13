@@ -104,4 +104,13 @@ class ProdukController extends Controller
 
         return redirect()->route('detailProduk', ['id'=>$produk_id])->with('alert-info', 'Review telah disimpan');
     }
+
+    public function cari(Request $request) {
+        $keyword = $request->keyword;
+        $kategori = 'semua';
+        $produks = Produk::where('nama', 'like', "%$keyword%")->get();
+        $count = count($produks);
+        return view('kategori', ['kategori'=>$kategori,
+            'produks'=>$produks, 'count'=>$count]);
+    }
 }

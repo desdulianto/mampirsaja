@@ -40,9 +40,9 @@
               @endif
             </div>
 
-              <form class="navbar-form navbar-left" role="search">
+              <form class="navbar-form navbar-left" role="search" action="{{route('cariProduk')}}">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
+                  <input type="text" name="keyword" class="form-control" placeholder="Search">
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
