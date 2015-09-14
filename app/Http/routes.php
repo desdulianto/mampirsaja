@@ -115,3 +115,6 @@ Route::get('/users', ['as'=>'users', 'uses'=>'Admin\UserController@index']);
 Route::get('/user/{username}', ['as'=>'user', 'uses'=>'Admin\UserController@detail']);
 Route::get('/user/block/{username}', ['as'=>'blockUser', 'uses'=>'Admin\UserController@block']);
 Route::get('/user/unblock/{username}', ['as'=>'unblockUser', 'uses'=>'Admin\UserController@unblock']);
+
+// cronjob
+Route::get('/cron', ['as'=>'cronjob', 'uses'=>'CronJob@jobs']);

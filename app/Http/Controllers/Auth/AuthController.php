@@ -160,6 +160,14 @@ class AuthController extends Controller
         }
 
         $credentials = $this->getCredentials($request);
+
+        if (Auth::once($credentials)) {
+            $user = User::where('username', $credentials['username'])->first();
+            if ($user->alasan_block() == 'User tidak aktif >= 2 bulan') {
+                $user->konfirmasi = true;
+                $user->save();
+            }
+        }
         $credentials['konfirmasi'] = true;
 
         if (Auth::attempt($credentials, $request->has('remember'))) {
