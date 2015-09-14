@@ -15,12 +15,12 @@ use App\BlockUser;
 class CronJob extends Controller
 {
     public function jobs(Request $request) {
-        /*if ($request->ip() != "127.0.0.1") {
+        if ($request->ip() != "127.0.0.1") {
             abort(403);
-    } else {*/
+        } else {
             $this->checkPenjualTidakLogin1Bulan();
             $this->checkPenjualTidakLogin2Bulan();
-            /*}*/
+        }
         return;
     }
 
