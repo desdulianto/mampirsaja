@@ -50,7 +50,7 @@ class CronJob extends Controller
         $logins = [];
 
         foreach($users as $user) {
-            if (Carbon::now('Asia/Jakarta')->diffInDays($user->latest_login()) >= 3) {
+            if (Carbon::now('Asia/Jakarta')->diffInDays($user->latest_login()) == 60) {
                 
             Mail::send('notif2bulan', array('user'=>$user), function($pesan) use ($user) {
                         $pesan->to($user->email, $user->username)->subject('Hallo ' . $user->nama_lengkap());
