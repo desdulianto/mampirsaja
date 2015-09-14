@@ -27,7 +27,7 @@
         <div class="form-group">
             {!! Form::label('foto', 'Foto', array('class'=>'col-sm-3 control-label')) !!}
             <div class="col-sm-7">
-            @if ($account->info->foto != null)
+            @if ($account->info != null && $account->info->foto != null)
             <div class="row">
             <img src="/uploads/{{$account->info->foto}}" width="480">
             </div>
