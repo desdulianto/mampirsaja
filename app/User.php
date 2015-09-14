@@ -112,6 +112,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function alasan_block() {
         $alasan = $this->alasan()->orderBy('id', 'desc')->first();
 
+        if ($alasan == null)
+            return null;
         return $alasan->alasan;
     }
 
