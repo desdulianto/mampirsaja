@@ -25,4 +25,8 @@ class Toko extends Model
     public function threads() {
         return $this->hasMany('App\Threads', 'toko_id');
     }
+
+    public function aktif() {
+        return $this->user->status() == 'Aktif';
+    }
 }

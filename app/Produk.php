@@ -14,10 +14,6 @@ class Produk extends Model
         return $this->belongsTo('App\Toko');
     }
 
-    public function user() {
-        return $this->belongsTo('App\User');
-    }
-
     public function kategori() {
         return $this->belongsTo('App\Kategori');
     }

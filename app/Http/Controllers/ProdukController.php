@@ -19,6 +19,10 @@ class ProdukController extends Controller
             $produks = Produk::all();
         else
             $produks = Produk::where('kategori_id', $kategori_id->id)->get();
+        for ($i = 0; $i < count($produks); $i++) {
+            if ($produks[$i]->toko->user->status() != 'Aktif')
+                unset($produks[$i]);
+        }
         $count = count($produks);
         return view('kategori', ['kategori'=>$kategori,
             'produks'=>$produks, 'count'=>$count]);
@@ -109,6 +113,10 @@ class ProdukController extends Controller
         $keyword = $request->keyword;
         $kategori = 'semua';
         $produks = Produk::where('nama', 'like', "%$keyword%")->get();
+        for ($i = 0; $i < count($produks); $i++) {
+            if ($produks[$i]->toko->user->status() != 'Aktif')
+                unset($produks[$i]);
+        }
         $count = count($produks);
         return view('kategori', ['kategori'=>$kategori,
             'produks'=>$produks, 'count'=>$count]);
