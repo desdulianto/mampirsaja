@@ -131,6 +131,7 @@ class AccountController extends Controller
             'alamat'        => 'max:255',
             'kota'          => 'max:255',
             'propinsi'      => 'max:255',
+            'kode_pos'      => 'max:30',
             'telepon'       => 'max:30'
             ]);
     }
@@ -162,6 +163,7 @@ class AccountController extends Controller
         $info = new UserInfo(['alamat'  =>$request->alamat,
                               'kota'    =>$request->kota,
                               'propinsi'=>$request->propinsi,
+                              'kode_pos'=>$request->kode_pos,
                               'telepon' =>$request->telepon]);
         } else {
             $user->nama_depan    = $request->nama_depan;
@@ -172,6 +174,7 @@ class AccountController extends Controller
             $info->alamat        = $request->alamat;
             $info->kota          = $request->kota;
             $info->propinsi      = $request->propinsi;
+            $info->kode_pos      = $request->kode_pos;
             $info->telepon       = $request->telepon;
         }
 

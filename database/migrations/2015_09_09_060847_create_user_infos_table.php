@@ -19,6 +19,7 @@ class CreateUserInfosTable extends Migration
             $table->string('alamat');
             $table->string('kota');
             $table->string('propinsi');
+            $table->string('kode_pos');
             $table->string('telepon');
             $table->timestamps();
         });

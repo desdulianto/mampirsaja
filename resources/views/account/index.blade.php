@@ -92,6 +92,16 @@
             </div>
         </div>
         <div class="form-group">
+            {!! Form::label('kode_pos', 'Kode Pos', array('class'=>'col-sm-3 control-label')) !!}
+            <div class="col-sm-7">
+            @if ($account->info != null)
+            {!! Form::text('kode_pos', $account->info->kode_pos, array('class'=>'form-control')) !!}
+            @else
+            {!! Form::text('kode_pos', null, array('class'=>'form-control')) !!}
+            @endif
+            </div>
+        </div>
+        <div class="form-group">
             {!! Form::label('telepon', 'Telepon', array('class'=>'col-sm-3 control-label')) !!}
             <div class="col-sm-7">
             @if ($account->info != null)
