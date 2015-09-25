@@ -135,4 +135,20 @@ class ProdukController extends Controller
 
         return redirect()->route('produk')->with('alert-info', "Produk $request->nama sudah tersimpan");
     }
+
+    public function hapus(Request $request) {
+        $produk = Produk::where('id', $request->id)->first();
+
+        if ($produk == null)
+            abort(404);
+
+        if (count($produk->pesanan_item) > 0) {
+            return redirect()->route('produk')->with('alert-warning', "Produk $produk->nama memiliki daftar pesanan");
+        }
+
+        $nama = $produk->nama;
+        $produk->delete();
+
+        return redirect()->route('produk')->with('alert-info', "Produk $nama sudah dihapus");
+    }
 }

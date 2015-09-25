@@ -17,6 +17,9 @@
             <p>{{$produk->deskripsi}}</p>
             <p>Harga: {{$produk->harga}}</p>
             <p>Stock: {{$produk->stock}}</p>
+            @if (count($produk->pesanan_item) == 0)
+            <a href="{{route('produkDelete', ['id'=>$produk->id])}}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+            @endif
         </div>
     </div>
 </div>
