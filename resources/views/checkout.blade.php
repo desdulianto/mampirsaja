@@ -9,43 +9,43 @@
     <div class="form-group">
         <label class="col-sm-3 control-label">Nama</label>
         <div class="col-sm-5">
-            <input type="text" name="nama" id="nama" class="form-control" value="{{old('nama')}}">
+            {!! Form::text('nama', $nama, array('class'=>'form-control')) !!}
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label">Alamat</label>
         <div class="col-sm-9">
-            <input type="text" name="alamat" id="alamat" class="form-control" value="{{old('alamat')}}">
+            {!! Form::text('alamat', $alamat, array('class'=>'form-control')) !!}
         </div>
     </div>
     <div class="form-group">
         {!! Form::label('kota', 'Kota', array('class'=>'col-sm-3 control-label')) !!}
         <div class="col-sm-5">
-            {!! Form::select('kota', $kota, null, array('class'=>'form-control', 'value'=>old('kota'), 'id'=>'kota')) !!}
+            {!! Form::select('kota', $daftar_kota, $kota, array('class'=>'form-control', 'value'=>old('kota'), 'id'=>'kota')) !!}
         </div>
     </div>
     <div class="form-group">
         {!! Form::label('propinsi', 'Provinsi', array('class'=>'col-sm-3 control-label')) !!}
         <div class="col-sm-5">
-            {!! Form::select('propinsi', $propinsi, null, array('class'=>'form-control', 'value'=>old('propinsi'), 'id'=>'propinsi')) !!}
+            {!! Form::select('propinsi', $daftar_propinsi, $propinsi, array('class'=>'form-control', 'value'=>old('propinsi'), 'id'=>'propinsi')) !!}
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label">Kode Pos</label>
         <div class="col-sm-3">
-            <input type="text" name="kode_pos" id="kode_pos" class="form-control" value="{{old('kode_pos')}}">
+            {!! Form::text('kode_pos', $kode_pos, array('class'=>'form-control')) !!}
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label">Email</label>
         <div class="col-sm-5">
-            <input type="text" name="email" id="email" class="form-control" value="{{old('email')}}">
+            {!! Form::text('email', $email, array('class'=>'form-control')) !!}
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label">Telepon/HP</label>
         <div class="col-sm-5">
-            <input type="text" name="telepon" id="telepon" class="form-control" value="{{old('telepon')}}">
+            {!! Form::text('telepon', $telepon, array('class'=>'form-control')) !!}
         </div>
     </div>
     <div class="form-group">
@@ -110,5 +110,7 @@ $('#kota').change( function(event) {
 $('#propinsi').change( function(event) {
     biayaKirim($('#kota').val(), event.target.value);
 });
+
+biayaKirim($('#kota').val(), $('#propinsi').val());
 </script>
 @endsection

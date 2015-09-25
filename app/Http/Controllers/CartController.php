@@ -96,13 +96,32 @@ class CartController extends Controller
         $cart = $session->get('cart', []);
 
         // kota dan propinsi
-        $kota = Propinsi::select('kota')->distinct()->
+        $daftar_kota = Propinsi::select('kota')->distinct()->
                     orderBy('kota', 'asc')->lists('kota', 'kota');
-        $propinsi = Propinsi::select('propinsi')->distinct()->
+        $daftar_propinsi = Propinsi::select('propinsi')->distinct()->
             orderBy('propinsi', 'asc')->lists('propinsi', 'propinsi');
 
         if (Auth::check()) {
-            return view('checkout', ['cart'=>$cart, 'kota'=>$kota, 'propinsi'=>$propinsi]);
+            $nama = '';
+            $alamat = '';
+            $kota = '';
+            $propinsi = '';
+            $kode_pos = '';
+            $email = '';
+            $telepon = '';
+            $user = Auth::user();
+            if ($user->info()) {
+                $nama = $user->nama_lengkap();
+                $alamat = $user->info->alamat;
+                $kota = $user->info->kota;
+                $propinsi = $user->info->propinsi;
+                $kode_pos = $user->info->kode_pos;
+                $email = $user->email;
+                $telepon = $user->info->telepon;
+            }
+            return view('checkout', ['cart'=>$cart, 'daftar_kota'=>$daftar_kota, 'daftar_propinsi'=>$daftar_propinsi,
+                'nama'=>$nama, 'alamat'=>$alamat, 'kota'=>$kota, 'propinsi'=>$propinsi, 'kode_pos'=>$kode_pos,
+                'email'=>$email, 'telepon'=>$telepon]);
         } else {
             return view('auth.login_or_register', ['redir'=>'checkout']);
         }
